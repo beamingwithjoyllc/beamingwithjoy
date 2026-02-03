@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Beaming With Joy | Wedding Keepsakes</title>
+  <meta name="description" content="Personalized wedding keepsakes: ring boxes + engraved plaques. Made in Texas. Order via quick form." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#101826;
+      --text:#e9eef6;
+      --muted:#a9b4c3;
+      --accent:#f4c84a;
+      --accent2:#78b7ff;
+      --line:rgba(255,255,255,.10);
+      --radius:16px;
+      --max:1050px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: radial-gradient(1000px 600px at 20% 10%, rgba(120,183,255,.18), transparent 55%),
+                  radial-gradient(900px 520px at 80% 0%, rgba(244,200,74,.18), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px;}
+    .nav{
+      display:flex; justify-content:space-between; align-items:center;
+      gap:14px; padding:14px 18px; border:1px solid var(--line);
+      background:rgba(16,24,38,.55); backdrop-filter: blur(8px);
+      border-radius:999px; position:sticky; top:14px; z-index:10;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
+    .dot{width:10px; height:10px; border-radius:50%; background:linear-gradient(90deg,var(--accent),var(--accent2))}
+    .nav a{font-size:14px; text-decoration:none; color:var(--muted)}
+    .nav a:hover{color:var(--text)}
+    .hero{padding:58px 6px 18px; display:grid; grid-template-columns: 1.2fr .8fr; gap:22px; align-items:center}
+    @media (max-width: 860px){ .hero{grid-template-columns:1fr; padding-top:34px} .nav{position:static; border-radius:var(--radius)} }
+    h1{font-size:48px; margin:0 0 10px}
+    @media (max-width: 520px){ h1{font-size:38px} }
+    .sub{color:var(--muted); font-size:18px; margin:0 0 18px}
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(16,24,38,.75); text-decoration:none; font-weight:600;
+    }
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#06101a; border:none}
+    .btn:hover{transform: translateY(-1px)}
+    .card{
+      border:1px solid var(--line);
+      background:rgba(16,24,38,.72);
+      border-radius:var(--radius);
+      padding:18px;
+    }
+    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px}
+    @media (max-width: 860px){ .grid3{grid-template-columns:1fr} }
+    .kicker{color:var(--muted); font-size:13px; letter-spacing:.18em; text-transform:uppercase}
+    .price{font-weight:800; font-size:18px}
+    .pillRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .pill{
+      font-size:12px; color:var(--muted);
+      padding:6px 10px; border:1px solid var(--line);
+      border-radius:999px; background:rgba(0,0,0,.10);
+    }
+    h2{margin:26px 0 12px; font-size:26px}
+    .section{margin-top:34px}
+    .two{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
+    @media (max-width: 860px){ .two{grid-template-columns:1fr} }
+    .faq details{border-top:1px solid var(--line); padding:12px 0}
+    .faq summary{cursor:pointer; font-weight:700}
+    .faq p{margin:8px 0 0; color:var(--muted)}
+    .footer{margin-top:40px; color:var(--muted); font-size:14px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+    .small{font-size:13px; color:var(--muted)}
+    .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+    .ph{
+      height:150px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+      display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.35);
+      background:rgba(0,0,0,.12);
+    }
+    @media (max-width:860px){ .gallery{grid-template-columns:1fr} .ph{height:130px} }
+    code{background:rgba(0,0,0,.25); padding:2px 6px; border-radius:8px; border:1px solid var(--line)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="nav">
+      <div class="brand"><span class="dot"></span> Beaming With Joy</div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end;">
+        <a href="#products">Products</a>
+        <a href="#gallery">Photos</a>
+        <a href="#howto">How to Order</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div>
+        <div class="kicker">Wedding & Engagement Keepsakes</div>
+        <h1>Ring boxes + engraved plaques, made to keep forever.</h1>
+        <p class="sub">Small-batch, personalized pieces you’ll actually want to display — perfect for proposals, weddings, and gift-giving.</p>
+
+        <div class="ctaRow">
+          <!-- TODO: Replace ORDER_FORM_LINK with your Google Form link -->
+          <a class="btn primary" href="ORDER_FORM_LINK" target="_blank" rel="noopener">Order Now</a>
+          <!-- TODO: Replace with your Instagram/TikTok links -->
+          <a class="btn" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+          <a class="btn" href="https://tiktok.com/" target="_blank" rel="noopener">TikTok</a>
+        </div>
+
+        <div class="pillRow">
+          <span class="pill">Laser: 15"×15" diode</span>
+          <span class="pill">3D Print: Bambu A1 Mini</span>
+          <span class="pill">Ships from Texas</span>
+          <span class="pill">Custom text included</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="kicker">Quick Picks</div>
+        <p style="margin:10px 0 0; color:var(--muted)">
+          Want a no-stress gift set? Start here:
+        </p>
+        <div class="grid3" style="grid-template-columns:1fr; margin-top:12px">
+          <div class="card" style="padding:14px">
+            <div style="display:flex; justify-content:space-between; gap:12px; align-items:baseline">
+              <strong>Gift Set</strong> <span class="price">$85–$120</span>
+            </div>
+            <div class="small">Ring box + engraved plaque + gift-ready packaging</div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div style="display:flex; justify-content:space-between; gap:12px; align-items:baseline">
+              <strong>Ring Box</strong> <span class="price">$28–$45</span>
+            </div>
+            <div class="small">Single or double ring options • modern minimalist</div>
+          </div>
+          <div class="card" style="padding:14px">
+            <div style="display:flex; justify-content:space-between; gap:12px; align-items:baseline">
+              <strong>Keepsake Plaque</strong> <span class="price">$45–$75</span>
+            </div>
+            <div class="small">Names + date + short phrase • wood or acrylic</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="products" class="section">
+      <h2>Products</h2>
+      <div class="grid3">
+        <div class="card">
+          <div class="kicker">3D Printed</div>
+          <h3 style="margin:6px 0 8px">Minimalist Ring Box</h3>
+          <p class="small">A clean, modern ring box sized for the A1 Mini — durable, elegant, and travel-friendly.</p>
+          <div class="pillRow">
+            <span class="pill">single or double ring</span>
+            <span class="pill">matte PLA</span>
+            <span class="pill">name/date option</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="kicker">Laser Engraved</div>
+          <h3 style="margin:6px 0 8px">Wedding Keepsake Plaque</h3>
+          <p class="small">Personalized names + wedding date. Minimal design that looks great on a shelf or nightstand.</p>
+          <div class="pillRow">
+            <span class="pill">wood or acrylic</span>
+            <span class="pill">gift-ready</span>
+            <span class="pill">fast personalization</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="kicker">Bundle</div>
+          <h3 style="margin:6px 0 8px">Forever Starts Here Gift Set</h3>
+          <p class="small">Best value. Perfect for engagement gifts, bridal showers, and wedding day details.</p>
+          <div class="pillRow">
+            <span class="pill">higher savings</span>
+            <span class="pill">single checkout</span>
+            <span class="pill">ready to gift</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="gallery" class="section">
+      <h2>Photos</h2>
+      <p class="small">Add your product photos here. Replace the placeholders with your images later.</p>
+      <div class="gallery">
+        <div class="ph">Ring Box Photo 1</div>
+        <div class="ph">Plaque Photo 1</div>
+        <div class="ph">Gift Set Photo 1</div>
+      </div>
+      <p class="small" style="margin-top:10px">
+        Tip: Take photos near a window, use a neutral background, and include a hand shot for scale.
+      </p>
+    </div>
+
+    <div id="howto" class="section">
+      <h2>How to Order</h2>
+      <div class="two">
+        <div class="card">
+          <h3 style="margin:0 0 8px">1) Submit the Order Form</h3>
+          <p class="small">Choose product, color/material, and enter names + date. (Takes ~2 minutes.)</p>
+          <p class="small">Button: <code>Order Now</code></p>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 8px">2) Approve the Proof</h3>
+          <p class="small">I’ll send a quick preview for confirmation before making your keepsake.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 8px">3) Pay</h3>
+          <p class="small">Venmo / PayPal / Zelle accepted. You’ll receive payment instructions after proof approval.</p>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 8px">4) Production + Shipping</h3>
+          <p class="small">Most items ship in 3–7 business days depending on personalization and volume.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="faq" class="section">
+      <h2>FAQ</h2>
+      <div class="faq card">
+        <details open>
+          <summary>What can be personalized?</summary>
+          <p>Names, date, and a short phrase. You’ll choose from a few curated font/style options to keep everything consistent and high-quality.</p>
+        </details>
+        <details>
+          <summary>Do you offer rush orders?</summary>
+          <p>Yes when possible. Rush fees may apply depending on timeline and current queue.</p>
+        </details>
+        <details>
+          <summary>Can I match my wedding colors?</summary>
+          <p>Usually yes for the ring box (PLA color options). For plaques, wood tone and acrylic style options vary.</p>
+        </details>
+        <details>
+          <summary>What’s your return/refund policy?</summary>
+          <p>Because items are personalized, returns aren’t typically accepted. If something arrives damaged or incorrect, I’ll make it right.</p>
+        </details>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>© <span id="year"></span> Beaming With Joy • Made in Texas</div>
+      <div class="small">Questions? DM on Instagram or use the order form notes section.</div>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
