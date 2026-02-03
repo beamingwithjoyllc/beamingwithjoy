@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Shop | Beaming With Joy</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="announce">✨ Small-batch items — personalization included on select products ✨</div>
+
+  <div class="nav">
+    <div class="navInner">
+      <div class="navLeft">
+        <a class="navLink" href="index.html">Home</a>
+        <a class="navLink" href="categories.html">Categories</a>
+        <a class="navLink" href="shop.html">All Products</a>
+        <a class="navLink" href="contact.html">Contact</a>
+      </div>
+      <div class="logoCenter"><img src="assets/logo.png" alt="Beaming With Joy"></div>
+      <div class="navRight">
+        <a class="navLink" href="cart.html">Cart <span class="cartBadge" data-cart-count>0</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="sectionTitle">Shop</div>
+
+    <div class="card filtersTop">
+      <input id="q" class="input" placeholder="Search products..." />
+      <div class="tabs">
+        <button class="tab active" data-tab="all">All</button>
+        <button class="tab" data-tab="deal">Deals</button>
+        <button class="tab" data-tab="gift">Gifts</button>
+        <button class="tab" data-tab="popular">Popular</button>
+      </div>
+      <div style="margin-left:auto;" class="small muted">Pagination-ready</div>
+    </div>
+
+    <div id="shopGrid" class="grid" style="margin-top:12px;"></div>
+
+    <div class="btnRow" style="justify-content:center; margin-top:18px;">
+      <button class="btn" disabled>Prev</button>
+      <button class="btn" disabled>Next</button>
+    </div>
+  </div>
+
+  <script src="assets/products.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    let currentTag = null;
+
+    function refresh(){
+      const query = document.getElementById("q").value || "";
+      renderProductGrid("shopGrid", { tag: currentTag, query });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      refresh();
+
+      document.getElementById("q").addEventListener("input", refresh);
+
+      document.querySelectorAll("[data-tab]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+          btn.classList.add("active");
+          const t = btn.getAttribute("data-tab");
+          currentTag = (t === "all") ? null : t;
+          refresh();
+        });
+      });
+    });
+  </script>
+</body>
+</html>
