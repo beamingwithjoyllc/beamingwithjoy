@@ -55,7 +55,7 @@ function renderProductGrid(containerId, opts={}){
       p.name.toLowerCase().includes(q) ||
       (p.blurb || "").toLowerCase().includes(q)
     );
-  }
+  } 
 
   el.innerHTML = list.map(p => `
     <div class="card product">
