@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Cart | Beaming With Joy</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="announce">✨ Cart saves automatically while you browse ✨</div>
+
+  <div class="nav">
+    <div class="navInner">
+      <div class="navLeft">
+        <a class="navLink" href="index.html">Home</a>
+        <a class="navLink" href="shop.html">Shop</a>
+        <a class="navLink" href="categories.html">Categories</a>
+      </div>
+      <div class="logoCenter"><img src="assets/logo.png" alt="Beaming With Joy"></div>
+      <div class="navRight">
+        <a class="navLink" href="cart.html">Cart <span class="cartBadge" data-cart-count>0</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="sectionTitle">Your Cart</div>
+    <div id="cartMount"></div>
+  </div>
+
+  <script src="assets/products.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    // IMPORTANT: replace ORDER_FORM_LINK inside app.js/cart rendering once your form exists
+    document.addEventListener("DOMContentLoaded", () => renderCart("cartMount"));
+  </script>
+</body>
+</html>
