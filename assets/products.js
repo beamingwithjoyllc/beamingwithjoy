@@ -17,5 +17,5 @@ window.PRODUCTS = [
     tags: ["gift", "deal"],
     image: "assets/placeholder-plaque.jpg",
     blurb: "Names + date + short phrase. Wood or acrylic style."
-  }
+  } 
 ];
