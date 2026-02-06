@@ -596,6 +596,30 @@ FOOTER + bottom CTA kept (you said perfect)
 
       .contact-mini a:hover { border-color: rgba(18, 59, 59, 0.26); }
 
+      /* ===== FIX mosaic overlap with text ===== */
+
+      /* Reserve space so images never cover text */
+      .m-clean .m-inner{
+        padding-right: clamp(240px, 34vw, 380px);
+      }
+      
+      .m-time .m-inner{
+        padding-right: clamp(240px, 34vw, 380px);
+      }
+      
+      /* Reduce how aggressively images overlap */
+      .m-pic1{ right: -12px; }
+      .m-pic3{ right: -12px; }
+      
+      /* Mobile: remove reserved space when images are hidden */
+      @media (max-width: 760px){
+        .m-clean .m-inner,
+        .m-time .m-inner{
+          padding-right: 22px;
+        }
+      }
+
+
       /* Responsive */
       @media (max-width: 980px) {
         .hero-frame { grid-template-columns: 1fr; }
