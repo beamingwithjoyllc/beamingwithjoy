@@ -115,6 +115,11 @@ a{ color: inherit; text-decoration: none; }
 }
 .btnRow{ display:flex; gap: 10px; flex-wrap:wrap; margin-top: 16px; }
 
+.btn-instagram {
+  background: linear-gradient(135deg, #f3d37a, #79b7ff);
+  border: 1px solid rgba(18, 59, 59, 0.2);
+}
+
 .card{
   background: rgba(255,253,248,.92);
   border: 1px solid var(--line);
