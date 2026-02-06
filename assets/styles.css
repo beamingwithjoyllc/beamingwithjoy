@@ -219,3 +219,161 @@ a{ color: inherit; text-decoration: none; }
   justify-content:space-between;
   font-size: 16px;
 }
+
+/* =========================
+   BRAND PALETTE (Logo)
+   ========================= */
+:root{
+  --brand-teal-light: #cff1ee;   /* Light turquoise */
+  --brand-teal: #bfe8ee;         /* Light azure */
+  --brand-teal-dark: #4faac6;    /* Azure */
+
+  --brand-yellow-soft: #fff6ba;  /* Light yellow */
+  --brand-yellow: #ffea5e;       /* Yellow */
+
+  --brand-coral-light: #ffdacc;  /* Light orange */
+  --brand-coral: #f3a080;        /* Pastel orange */
+}
+
+
+/* =========================
+   SHOP: Collapsible Sidebar Filters (Brand)
+   ========================= */
+
+.shopHead { margin-bottom: 12px; }
+
+.shopSub{
+  margin-top: -2px;
+  color: rgba(18,59,59,0.70);
+  font-weight: 750;
+}
+
+/* Layout */
+.shopLayout{
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.shopMain { min-width: 0; }
+
+/* Toggle (only shows on smaller screens) */
+.filtersToggle{
+  display: none;
+  width: 100%;
+  align-items:center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(18,59,59,0.14);
+  background: rgba(255,255,255,0.78);
+  font-weight: 950;
+  cursor: pointer;
+}
+
+/* Sidebar: slightly darker brand gradient + light text */
+.filtersPanel{
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.18);
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(18,59,59,0.12);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 234, 94, 0.52),  /* darker yellow */
+    rgba(243, 160, 128, 0.52), /* darker coral */
+    rgba(79, 170, 198, 0.46)   /* darker blue */
+  );
+}
+
+.filtersPanelInner{
+  padding: 14px;
+  color: rgba(255,255,255,0.92);
+}
+
+.filtersPanelTitle{
+  font-weight: 1000;
+  letter-spacing: 0.2px;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 6px;
+}
+
+.filtersHint{
+  font-size: 12px;
+  font-weight: 750;
+  opacity: 0.95;
+  margin-bottom: 10px;
+}
+
+.filtersBlock{
+  background: rgba(15, 63, 63, 0.22);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 16px;
+  padding: 10px;
+}
+
+.filtersBlockTitle{
+  font-weight: 1000;
+  margin: 2px 4px 8px;
+  color: rgba(255,255,255,0.95);
+}
+
+.fOption{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding: 8px 10px;
+  border-radius: 14px;
+  font-weight: 850;
+  color: rgba(255,255,255,0.92);
+}
+
+.fOption:hover{ background: rgba(255,255,255,0.12); }
+
+.fOption input{ accent-color: rgba(255,255,255,0.95); }
+
+.filtersActions{
+  display:flex;
+  gap:10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+/* Badge in the top search/tabs bar */
+.pendingBadge{
+  margin-left:auto;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(18,59,59,0.12);
+  background: rgba(255,255,255,0.65);
+  font-weight: 850;
+}
+
+/* Ghost button used in shop.html */
+.btnGhost{
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.95);
+  font-weight: 950;
+}
+
+.btnGhost:hover{
+  background: rgba(255,255,255,0.18);
+}
+
+/* If your site doesn't already have .btn-primary in styles.css,
+   this makes Apply Filters match your brand (safe fallback). */
+.btn-primary{
+  background: linear-gradient(135deg, var(--brand-yellow-soft), var(--brand-yellow));
+  border: 1px solid rgba(18,59,59,0.14);
+  color: rgba(15,63,63,0.95);
+  font-weight: 950;
+}
+
+/* Responsive: collapse sidebar */
+@media (max-width: 980px){
+  .shopLayout{ grid-template-columns: 1fr; }
+  .filtersToggle{ display: inline-flex; }
+  .filtersPanel{ display: none; }
+  .filtersPanel.open{ display: block; }
+}
