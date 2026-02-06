@@ -1,12 +1,11 @@
 <!--
-Beaming With Joy — Homepage direction (chosen):
-- Use the “Oishii / high-converting” style: full-bleed hero image + clear value prop + primary CTA + simple category tiles.
-Why: clean, modern, product-first, easy to scale later without redesign.
-
-Next pages after this:
-1) shop.html (filters + category chips)
-2) category landing (Events / Kids / Holiday / Random / Unique)
-3) product detail template
+Beaming With Joy — Homepage (updated layout)
+- Top hero like reference: left text panel + right MAIN_HOME_IMAGE.png
+- Keep ombre background
+- “What we make” becomes a floating overlay card with text over an image
+- “Made with Joy” becomes 3 overlapping cards
+- “Need something custom?” stays at bottom
+- Contact moves into footer
 -->
 
 <!DOCTYPE html>
@@ -21,66 +20,58 @@ Next pages after this:
     />
     <style>
       :root {
-        --bg: #fbf6ee;
-        --panel: rgba(255, 255, 255, 0.06);
-        --panel2: rgba(255, 255, 255, 0.09);
+        --bg1: #fdfefe;
+        --bg2: #e9f7fb;
+        --bg3: #f7f1e8;
+        --bg4: #fff8ee;
+
         --text: #123b3b;
         --muted: #5f7f7f;
         --line: rgba(18, 59, 59, 0.14);
+
         --yellow: #f3d37a;
         --orange: #f2a25c;
         --blue: #79b7ff;
+
         --coral-dark: #d46a4f;
         --yellow-dark: #c9a23a;
         --teal-dark: #0f3f3f;
-        --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+
+        --shadow: 0 18px 50px rgba(18, 59, 59, 0.10);
+        --shadow2: 0 26px 70px rgba(18, 59, 59, 0.14);
+
         --radius: 18px;
         --max: 1120px;
       }
 
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        height: 100%;
-      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
 
       body {
         margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
-          Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        background: linear-gradient( 
-          135deg,
-          #fdfefe 0%,
-          #f6fcfd 22%,
-          #e9f7fb 45%,
-          #f7f1e8 68%,
-          #fff8ee 100%
-        );
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+          "Apple Color Emoji", "Segoe UI Emoji";
         color: var(--text);
+        background: linear-gradient(
+          135deg,
+          var(--bg1) 0%,
+          #f6fcfd 18%,
+          var(--bg2) 42%,
+          var(--bg3) 70%,
+          var(--bg4) 100%
+        );
       }
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .container {
-        width: min(var(--max), calc(100% - 40px));
-        margin: 0 auto;
-      }
+      a { color: inherit; text-decoration: none; }
+      .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
 
       /* Top nav */
       .nav {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        top: 0; left: 0; right: 0;
         z-index: 50;
         backdrop-filter: blur(12px);
-        background: rgba(255, 255, 255, 0.75);
+        background: rgba(255, 255, 255, 0.78);
         border-bottom: 1px solid var(--line);
       }
 
@@ -96,16 +87,16 @@ Next pages after this:
         display: flex;
         align-items: center;
         gap: 10px;
-        font-weight: 700;
-        letter-spacing: 0.3px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
       }
 
-      .logo {
+      .logo-mark {
         width: 34px;
         height: 34px;
         border-radius: 12px;
-        background: linear-gradient(135deg, rgba(243, 211, 122, 0.9), rgba(121, 183, 255, 0.9));
-        box-shadow: 0 10px 30px rgba(121, 183, 255, 0.14);
+        background: linear-gradient(135deg, rgba(243, 211, 122, 0.95), rgba(121, 183, 255, 0.9));
+        box-shadow: 0 12px 30px rgba(121, 183, 255, 0.16);
       }
 
       .nav-links {
@@ -116,9 +107,7 @@ Next pages after this:
         font-size: 14px;
       }
 
-      .nav-links a:hover {
-        color: var(--text);
-      }
+      .nav-links a:hover { color: var(--text); }
 
       .pill {
         display: inline-flex;
@@ -127,52 +116,48 @@ Next pages after this:
         padding: 10px 14px;
         border-radius: 999px;
         border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.04);
+        background: rgba(255, 255, 255, 0.65);
         color: var(--text);
         font-size: 14px;
+        font-weight: 700;
       }
 
-      .pill:hover {
-        border-color: rgba(255, 255, 255, 0.22);
-      }
+      .pill:hover { border-color: rgba(18, 59, 59, 0.25); }
 
       /* Hero */
       .hero {
         position: relative;
-        min-height: 86vh;
-        display: grid;
-        align-items: center;
-        padding-top: 78px; /* nav offset */
+        padding-top: 88px; /* nav offset */
+        padding-bottom: 110px; /* space for floating card */
       }
 
       .hero-bg {
         position: absolute;
         inset: 0;
-        background-color: #bfe6e4;
         background:
-          radial-gradient(900px 520px at 18% 18%, rgba(121, 183, 255, 0.16), transparent 55%),
-          radial-gradient(880px 520px at 72% 12%, rgba(242, 162, 92, 0.14), transparent 55%),
-          linear-gradient(180deg, 
-                          rgba(255, 255, 255, 0.0) 0%, 
-                          rgba(190, 230, 228, 0.55) 55%, 
-                          rgba(155, 214, 210, 0.85) 100%),
-
-          url("assets/basic_hero.jpg");
-        background-size: cover;
-        background-position: center;
-        filter: saturate(1.02);
+          radial-gradient(900px 520px at 16% 20%, rgba(121, 183, 255, 0.20), transparent 55%),
+          radial-gradient(860px 520px at 74% 16%, rgba(242, 162, 92, 0.18), transparent 55%),
+          linear-gradient(180deg, rgba(255,255,255,0.00), rgba(190,230,228,0.40) 55%, rgba(155,214,210,0.78));
+        pointer-events: none;
       }
 
-      .hero-content {
+      .hero-shell {
         position: relative;
-        padding: 56px 0 40px;
       }
 
-      .hero-grid {
+      .hero-frame {
         display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 28px;
-        align-items: start;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 22px;
+        align-items: center;
+      }
+
+      .hero-panel {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: var(--shadow2);
+        padding: 26px 24px;
       }
 
       .kicker {
@@ -181,10 +166,11 @@ Next pages after this:
         gap: 10px;
         padding: 8px 12px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid rgba(18, 59, 59, 0.12);
         color: var(--muted);
         font-size: 13px;
+        font-weight: 700;
       }
 
       .dot {
@@ -192,23 +178,23 @@ Next pages after this:
         height: 9px;
         border-radius: 50%;
         background: var(--yellow);
-        box-shadow: 0 0 0 4px rgba(243, 211, 122, 0.14);
+        box-shadow: 0 0 0 4px rgba(243, 211, 122, 0.18);
       }
 
       h1 {
-        margin: 14px 0 12px;
-        font-size: clamp(34px, 4.2vw, 58px);
-        line-height: 1.04;
-        letter-spacing: -0.6px;
+        margin: 14px 0 10px;
+        font-size: clamp(34px, 4.2vw, 56px);
+        line-height: 1.02;
+        letter-spacing: -0.7px;
         color: #0f2f2f;
       }
 
       .subhead {
-        margin: 0 0 22px;
-        max-width: 52ch;
+        margin: 0 0 18px;
         color: var(--muted);
-        font-size: 16.5px;
+        font-size: 16px;
         line-height: 1.6;
+        max-width: 56ch;
       }
 
       .cta-row {
@@ -226,170 +212,190 @@ Next pages after this:
         padding: 12px 16px;
         border-radius: 14px;
         border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.86);
         color: var(--text);
-        font-weight: 600;
+        font-weight: 800;
         font-size: 14px;
         cursor: pointer;
+        transition: transform 160ms ease, border-color 160ms ease;
       }
 
       .btn:hover {
         border-color: rgba(18, 59, 59, 0.28);
         transform: translateY(-1px);
-        transition: 160ms ease;
       }
 
       .btn-primary {
-        border-color: rgba(243, 211, 122, 0.36);
-        background: linear-gradient(135deg, rgba(243, 211, 122, 0.65), rgba(121, 183, 255, 0.55));
-        box-shadow: 0 14px 50px rgba(242, 162, 92, 0.12);
-      }
-
-      .btn-primary:hover {
-        border-color: rgba(243, 211, 122, 0.62);
+        border-color: rgba(243, 211, 122, 0.45);
+        background: linear-gradient(135deg, rgba(243, 211, 122, 0.75), rgba(121, 183, 255, 0.55));
       }
 
       .mini {
         color: var(--muted);
         font-size: 13px;
+        font-weight: 700;
       }
 
-      .hero-card {
-        border-radius: var(--radius);
-        border: 1px solid rgba(18, 59, 59, 0.14);
-        background: rgba(255, 255, 255, 0.78);
-        box-shadow: 0 18px 45px rgba(18, 59, 59, 0.08);
+      .hero-image {
+        border-radius: calc(var(--radius) + 8px);
+        border: 1px solid rgba(18, 59, 59, 0.12);
+        background: rgba(255, 255, 255, 0.35);
+        box-shadow: var(--shadow2);
         overflow: hidden;
+        min-height: 420px;
+        position: relative;
       }
 
-      .hero-card-top {
-        padding: 18px 18px 12px;
-        border-bottom: 1px solid var(--line);
+      .hero-image::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.02)),
+          radial-gradient(800px 380px at 70% 30%, rgba(121,183,255,0.18), transparent 55%),
+          radial-gradient(760px 380px at 30% 70%, rgba(243,211,122,0.18), transparent 55%);
+        pointer-events: none;
+      }
+
+      .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transform: scale(1.02);
+      }
+
+      /* Floating “What we make” (text over image) */
+      .floating-make {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -56px;
+        width: min(var(--max), calc(100% - 40px));
+        border-radius: calc(var(--radius) + 8px);
+        border: 1px solid rgba(18, 59, 59, 0.14);
+        overflow: hidden;
+        box-shadow: var(--shadow2);
+        background: #fff;
+      }
+
+      .floating-make-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(10, 45, 45, 0.88) 0%, rgba(10, 45, 45, 0.38) 58%, rgba(10, 45, 45, 0.12) 100%),
+          url("assets/basic_glassware.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .floating-make-content {
+        position: relative;
+        padding: 22px 22px 20px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .floating-head {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
       }
 
-      .hero-card-title {
-        font-weight: 700;
-        font-size: 14px;
+      .floating-title {
+        font-weight: 900;
         letter-spacing: 0.2px;
-        color: var(--coral-dark);
+        color: rgba(255,255,255,0.95);
+        font-size: 15px;
       }
-      
-      .hero-logo-float{
-        position:absolute;
-        right: 40px;
-        top: 110px;
-        width: min(360px, 34vw);
-        transform: rotate(8deg);
-        filter: drop-shadow(0 18px 35px rgba(18,59,59,0.18));
-        opacity: 0.95;
-        pointer-events:none;
-        z-index: 10;
-      }
-      
-      /* @media (max-width: 980px){
-       /*   .hero-logo-float{ display:none; } /* hide on mobile so it doesn't crowd */
-      
 
       .badge {
         font-size: 12px;
-        color: var(--teal-dark);
+        font-weight: 900;
+        color: #0f2f2f;
         padding: 7px 10px;
         border-radius: 999px;
-        background: rgba(243, 211, 122, 0.35);
+        background: rgba(243, 211, 122, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.22);
       }
 
-      .hero-card-body {
-        padding: 16px 18px 18px;
+      .make-list {
         display: grid;
-        gap: 10px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
       }
 
-      .row {
+      .make-item {
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.18);
+        background: rgba(255,255,255,0.10);
+        padding: 12px 12px;
+        color: rgba(255,255,255,0.90);
+        min-height: 86px;
+      }
+
+      .make-item strong {
+        display: block;
+        margin-bottom: 4px;
+        color: rgba(255,255,255,0.98);
+        font-weight: 900;
+      }
+
+      .make-item span {
+        color: rgba(255,255,255,0.78);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .floating-actions {
         display: flex;
-        gap: 10px;
-        align-items: flex-start;
-      }
-
-      .spark {
-        width: 10px;
-        height: 10px;
-        margin-top: 5px;
-        border-radius: 3px;
-        background: var(--blue);
-        box-shadow: 0 0 0 4px rgba(121, 183, 255, 0.12);
-        flex: 0 0 auto;
-      }
-
-      .row p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 13.5px;
-        line-height: 1.45;
-      }
-
-      .row p strong {
-        color: var(--yellow-dark);
+        justify-content: flex-end;
       }
 
       /* Sections */
-      .section {
-        padding: 46px 0;
-      }
-
+      .section { padding: 86px 0 52px; }
       .section h2 {
         margin: 0 0 10px;
-        font-size: 22px;
-        letter-spacing: -0.2px;
+        font-size: 24px;
+        letter-spacing: -0.3px;
         color: #0f2f2f;
       }
-
-      .section .lead {
+      .lead {
         margin: 0 0 18px;
         color: var(--muted);
         line-height: 1.6;
         max-width: 70ch;
+        font-weight: 650;
       }
 
-      .grid {
-        display: grid;
-        gap: 14px;
-      }
-
-      .grid-4 {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .grid-3 {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      /* Categories */
+      .grid { display: grid; gap: 14px; }
+      .grid-4 { grid-template-columns: repeat(4, 1fr); }
 
       .tile {
         border-radius: var(--radius);
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(18, 59, 59, 0.14);
+        background: rgba(255, 255, 255, 0.84);
         overflow: hidden;
         min-height: 170px;
         display: grid;
         align-content: end;
         position: relative;
-        box-shadow: 0 12px 50px rgba(0, 0, 0, 0.35);
+        box-shadow: var(--shadow);
+        transition: transform 180ms ease, border-color 180ms ease;
       }
 
       .tile:hover {
-        border-color: rgba(255, 255, 255, 0.22);
+        border-color: rgba(18, 59, 59, 0.26);
         transform: translateY(-2px);
-        transition: 180ms ease;
       }
 
       .tile::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.85));
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.88));
         z-index: 1;
       }
 
@@ -410,75 +416,153 @@ Next pages after this:
       }
 
       .tile-title {
-        font-weight: 750;
+        font-weight: 950;
         letter-spacing: 0.2px;
+        color: var(--coral-dark);
       }
 
       .tile-desc {
-        color: var(--muted);
+        color: var(--teal-dark);
         font-size: 13px;
         line-height: 1.45;
+        font-weight: 650;
       }
 
+      /* Made with Joy (3 overlapping cards) */
+      .joy-wrap {
+        position: relative;
+        margin-top: 18px;
+        min-height: 210px;
+      }
+
+      .joy-card {
+        position: absolute;
+        width: min(520px, 92%);
+        border-radius: calc(var(--radius) + 10px);
+        border: 1px solid rgba(18, 59, 59, 0.14);
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: var(--shadow2);
+        padding: 18px 18px 16px;
+      }
+
+      .joy-card h3 {
+        margin: 0 0 6px;
+        font-size: 18px;
+        letter-spacing: -0.2px;
+        color: var(--coral-dark);
+      }
+
+      .joy-card p {
+        margin: 0;
+        color: var(--teal-dark);
+        line-height: 1.55;
+        font-weight: 650;
+        font-size: 14px;
+      }
+
+      .joy-1 { left: 0; top: 0; transform: rotate(-1.2deg); }
+      .joy-2 { left: 180px; top: 36px; transform: rotate(1.1deg); }
+      .joy-3 { left: 80px; top: 102px; transform: rotate(-0.4deg); }
+
+      /* Bottom CTA */
       .cta-band {
-        border-radius: calc(var(--radius) + 6px);
-        border: 1px solid var(--line);
+        border-radius: calc(var(--radius) + 10px);
+        border: 1px solid rgba(18, 59, 59, 0.14);
         background: linear-gradient(
           135deg,
-          rgba(243, 211, 122, 0.12),
-          rgba(121, 183, 255, 0.10),
-          rgba(255, 255, 255, 0.04)
+          rgba(243, 211, 122, 0.22),
+          rgba(121, 183, 255, 0.16),
+          rgba(255, 255, 255, 0.72)
         );
         padding: 22px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 18px;
+        box-shadow: var(--shadow);
       }
 
       .cta-band strong {
         display: block;
-        font-size: 16px;
+        font-size: 18px;
         margin-bottom: 4px;
+        color: var(--coral-dark);
+        font-weight: 950;
       }
 
       .cta-band span {
-        color: var(--muted);
-        font-size: 13.5px;
+        color: var(--teal-dark);
+        font-size: 14px;
         line-height: 1.45;
+        font-weight: 650;
       }
 
+      /* Footer contact */
       footer {
+        margin-top: 34px;
         padding: 26px 0 42px;
         border-top: 1px solid var(--line);
         color: var(--muted);
         font-size: 13px;
+        background: rgba(255, 255, 255, 0.55);
+        backdrop-filter: blur(10px);
       }
+
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .footer-links a { font-weight: 800; color: var(--teal-dark); }
+      .footer-links a:hover { color: var(--coral-dark); }
+
+      .contact-mini {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .contact-mini a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(18, 59, 59, 0.14);
+        background: rgba(255, 255, 255, 0.78);
+        color: var(--teal-dark);
+        font-weight: 900;
+      }
+
+      .contact-mini a:hover { border-color: rgba(18, 59, 59, 0.26); }
 
       /* Responsive */
       @media (max-width: 980px) {
-        .hero-grid {
-          grid-template-columns: 1fr;
-        }
-        .grid-4 {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .grid-3 {
-          grid-template-columns: 1fr;
-        }
+        .hero-frame { grid-template-columns: 1fr; }
+        .hero-image { min-height: 320px; }
+        .make-list { grid-template-columns: 1fr 1fr; }
+        .floating-make { bottom: -72px; }
+
+        .joy-wrap { min-height: 320px; }
+        .joy-card { position: relative; width: 100%; left: 0 !important; top: 0 !important; transform: none !important; margin-top: 12px; }
       }
 
       @media (max-width: 520px) {
-        .nav-links {
-          display: none;
-        }
-        .grid-4 {
-          grid-template-columns: 1fr;
-        }
-        .cta-band {
-          flex-direction: column;
-          align-items: flex-start;
-        }
+        .nav-links { display: none; }
+        .grid-4 { grid-template-columns: 1fr; }
+        .make-list { grid-template-columns: 1fr; }
+        .cta-band { flex-direction: column; align-items: flex-start; }
       }
     </style>
   </head>
@@ -488,45 +572,46 @@ Next pages after this:
       <div class="container">
         <div class="nav-inner">
           <a class="brand" href="index.html" aria-label="Beaming With Joy Home">
-            <span class="logo" aria-hidden="true"></span>
+            <span class="logo-mark" aria-hidden="true"></span>
             <span>Beaming With Joy</span>
           </a>
 
           <nav class="nav-links" aria-label="Primary">
-            <a href="shop.html">Shop</a>
-            <a href="shop.html#categories">Categories</a>
-            <a href="#custom">Custom Orders</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <a href="index.html">Home</a>
+            <a href="#categories">Categories</a>
+            <a href="shop.html">All Products</a>
+            <a href="#custom">Custom</a>
           </nav>
 
-          <a class="pill" href="shop.html">
-            <span style="color: var(--yellow)">✦</span>
-            <span>Browse products</span>
+          <a class="pill" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener">
+            <span style="color: var(--coral-dark)">✦</span>
+            <span>@beamingwithjoyllc</span>
           </a>
         </div>
       </div>
     </header>
 
     <main>
+      <!-- HERO -->
       <section class="hero">
         <div class="hero-bg" aria-hidden="true"></div>
 
-        <img class="hero-logo-float" src="/beamingwithjoy/assets/logo.png" alt="" aria-hidden="true" />
-
-        <div class="container hero-content">
-          <div class="hero-grid">
-            <div>
+        <div class="container hero-shell">
+          <div class="hero-frame">
+            <div class="hero-panel">
               <div class="kicker">
                 <span class="dot" aria-hidden="true"></span>
                 <span>Laser-engraved gifts • Event signs • Glass + wood</span>
               </div>
 
-              <h1>Custom-made pieces that feel like <span style="color: var(--yellow)">you</span>.</h1>
+              <h1>
+                Custom-made pieces that feel like
+                <span style="color: var(--yellow-dark)">you</span>.
+              </h1>
 
               <p class="subhead">
-                From classics with a cool twist to one-of-a-kind gifts, we design and engrave with crisp detail,
-                fast turnaround, and a whole lot of joy!
+                From classics with a cool twist to one-of-a-kind gifts, we design, laser engrave, and 3D-print
+                with crisp detail, fast turnaround, and a whole lot of joy.
               </p>
 
               <div class="cta-row">
@@ -536,39 +621,52 @@ Next pages after this:
               </div>
             </div>
 
-            <aside class="hero-card" aria-label="Quick info">
-              <div class="hero-card-top">
-                <div class="hero-card-title">What we make</div>
+            <div class="hero-image" aria-label="Main hero image">
+              <img src="assets/MAIN_HOME_IMAGE.png" alt="Beaming With Joy featured products" />
+            </div>
+          </div>
+
+          <!-- FLOATING WHAT WE MAKE (TEXT OVER IMAGE) -->
+          <section class="floating-make" aria-label="What we make">
+            <div class="floating-make-bg" aria-hidden="true"></div>
+            <div class="floating-make-content">
+              <div class="floating-head">
+                <div class="floating-title">What we make</div>
                 <div class="badge">Made to order</div>
               </div>
-              <div class="hero-card-body">
-                <div class="row">
-                  <span class="spark" aria-hidden="true"></span>
-                  <p><strong style="color: var(--text)">Event Signage</strong> — weddings, showers, parties, milestones.</p>
+
+              <div class="make-list">
+                <div class="make-item">
+                  <strong>Event Signage</strong>
+                  <span>Weddings, showers, parties, milestones.</span>
                 </div>
-                <div class="row">
-                  <span class="spark" aria-hidden="true" style="background: var(--orange)"></span>
-                  <p><strong style="color: var(--text)">Gifts</strong> — thoughtful peronalizations and engraved keepsakes</p>
+                <div class="make-item">
+                  <strong>Gifts</strong>
+                  <span>Thoughtful personalization + engraved keepsakes.</span>
                 </div>
-                <div class="row">
-                  <span class="spark" aria-hidden="true" style="background: var(--yellow)"></span>
-                  <p><strong style="color: var(--text)">Glass + Wood</strong> — clean finishes, crisp engraving </p>
+                <div class="make-item">
+                  <strong>Glass + Wood</strong>
+                  <span>Clean finishes, crisp engraving.</span>
                 </div>
-                <div class="row">
-                  <span class="spark" aria-hidden="true"></span>
-                  <p><strong style="color: var(--text)">Business</strong> — cards, tags, branding pieces, small runs </p>
+                <div class="make-item">
+                  <strong>Business</strong>
+                  <span>Cards, tags, branding pieces, small runs.</span>
                 </div>
-                <a class="btn" href="shop.html#categories" style="width: 100%; margin-top: 4px">Explore categories</a>
               </div>
-            </aside>
-          </div>
+
+              <div class="floating-actions">
+                <a class="btn" href="shop.html#categories">Explore categories</a>
+              </div>
+            </div>
+          </section>
         </div>
       </section>
 
+      <!-- CATEGORIES -->
       <section class="section" id="categories">
         <div class="container">
           <h2>Shop by category</h2>
-          <p class="lead">Simple, scrollable, and product-first — like the inspiration sites.</p>
+          <p class="lead">Simple, scrollable, and product-first — designed to feel clean, modern, and joyful.</p>
 
           <div class="grid grid-4">
             <a class="tile" href="shop.html#events">
@@ -606,83 +704,66 @@ Next pages after this:
         </div>
       </section>
 
-      <section class="section" id="custom">
+      <!-- MADE WITH JOY (OVERLAP) -->
+      <section class="section" id="about">
+        <div class="container">
+          <h2>Made with joy (and precision)</h2>
+          <p class="lead">
+            Crisp laser engraving + thoughtful design so your gift, sign, or keepsake feels intentional — not mass-produced.
+          </p>
+
+          <div class="joy-wrap" aria-label="Three overlapping highlights">
+            <div class="joy-card joy-1">
+              <h3>Clean design</h3>
+              <p>Simple, modern layouts that photograph beautifully and feel elevated.</p>
+            </div>
+
+            <div class="joy-card joy-2">
+              <h3>Quality materials</h3>
+              <p>Glass, wood, acrylic, and more — chosen for the finish and durability.</p>
+            </div>
+
+            <div class="joy-card joy-3">
+              <h3>Fast + friendly</h3>
+              <p>Clear timelines, quick proofs, and easy communication from start to finish.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BOTTOM CTA -->
+      <section class="section" id="custom" style="padding-top: 40px;">
         <div class="container">
           <div class="cta-band">
             <div>
               <strong>Need something custom?</strong>
               <span>Tell us the idea + deadline. We’ll recommend materials, sizing, and a clean design direction.</span>
             </div>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap">
-              <a class="btn btn-primary" href="#contact">Start a request →</a>
-              <a class="btn" href="shop.html">Browse ready-to-buy</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="about">
-        <div class="container">
-          <h2>Made with joy (and precision)</h2>
-          <p class="lead">
-            Beaming With Joy blends crisp laser engraving with thoughtful design so your gift, sign, or keepsake feels
-            intentional — not mass-produced.
-          </p>
-
-          <div class="grid grid-3">
-            <div class="tile" style="min-height: 150px">
-              <div class="tile-content">
-                <div class="tile-title">Clean design</div>
-                <div class="tile-desc">Simple, modern layouts that photograph beautifully.</div>
-              </div>
-            </div>
-            <div class="tile" style="min-height: 150px">
-              <div class="tile-content">
-                <div class="tile-title">Quality materials</div>
-                <div class="tile-desc">Glass, wood, acrylic, and more — chosen for the finish.</div>
-              </div>
-            </div>
-            <div class="tile" style="min-height: 150px">
-              <div class="tile-content">
-                <div class="tile-title">Fast + friendly</div>
-                <div class="tile-desc">Clear timelines, quick proofs, and easy communication.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="contact">
-        <div class="container">
-          <div class="cta-band">
-            <div>
-              <strong>Contact</strong>
-              <span>
-                Replace these placeholders with your real links:
-                <span style="color: var(--blue)">Instagram</span> • <span style="color: var(--yellow)">Email</span> •
-                <span style="color: var(--orange)">Etsy</span>
-              </span>
-            </div>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap">
-              <a class="btn btn-instagram" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener"> 
-                Instagram </a
-                            >
-              <a class="btn btn-primary" href="#" onclick="alert('Add your email link in index.html'); return false;"
-                >Email us</a
-              >
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <a class="btn btn-primary" href="shop.html">Browse ready-to-buy →</a>
+              <a class="btn" href="mailto:beamingwithjoyllc@gmail.com">Email a request</a>
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <footer>
-      <div class="container" style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap">
-        <div>© <span id="year"></span> Beaming With Joy LLC</div>
-        <div style="display: flex; gap: 14px; flex-wrap: wrap">
-          <a href="shop.html">Shop</a>
-          <a href="cart.html">Cart</a>
-          <a href="#contact">Contact</a>
+    <!-- FOOTER (CONTACT) -->
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-row">
+          <div>© <span id="year"></span> Beaming With Joy LLC</div>
+
+          <div class="footer-links">
+            <a href="shop.html">Shop</a>
+            <a href="cart.html">Cart</a>
+            <a href="#categories">Categories</a>
+          </div>
+
+          <div class="contact-mini" aria-label="Contact links">
+            <a href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener">Instagram</a>
+            <a href="mailto:beamingwithjoyllc@gmail.com">Email</a>
+          </div>
         </div>
       </div>
     </footer>
