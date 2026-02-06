@@ -1,18 +1,10 @@
 <!--
-Beaming With Joy — Homepage (CLEAN REWRITE)
-GOALS:
-- No “ghosting”/see-through/stacking bugs (mosaic is isolated + opaque; no overlap with other sections)
-- Hero + “What we make” stays clean, on-brand, and in normal flow
-- Mosaic uses CSS GRID for the big blocks (not absolute), and only uses small, controlled overlaps for photos
-- Photos never cover text/buttons (text columns reserve space; overlays are clipped and z-indexed)
-- Responsive: some photos hide on smaller screens; layout reflows gracefully
-
-ASSETS USED (keep in /assets/):
-- MAIN_HOME_IMAGE.png
-- basic_invite.jpg
-- basic_glassware.jpg
-- basic_woodwork.jpg
-- basic_bc.jpg
+Beaming With Joy — Homepage (FULL REWRITE)
+Goal fixes:
+- Mosaic no longer uses absolute positioning (no “ghost” overlaps / weird stacking)
+- Photos NEVER cover text/buttons (photos live in their own grid cells + only overlap via safe margins)
+- Layout stays balanced across widths (desktop / tablet / mobile) and photos hide progressively
+- pic4 bridges Timelapses + Quality; pic5 hugs outer edge of Quality
 -->
 
 <!DOCTYPE html>
@@ -25,7 +17,6 @@ ASSETS USED (keep in /assets/):
       name="description"
       content="Laser-engraved gifts, custom event signs, woodwork, glassware, and playful one-offs — designed and made with joy."
     />
-
     <style>
       :root {
         --bg1: #fdfefe;
@@ -40,6 +31,7 @@ ASSETS USED (keep in /assets/):
         --yellow: #f3d37a;
         --orange: #f2a25c;
         --blue: #79b7ff;
+        --teal: #9bd6d2;
 
         --coral-dark: #d46a4f;
         --yellow-dark: #c9a23a;
@@ -73,9 +65,7 @@ ASSETS USED (keep in /assets/):
       a { color: inherit; text-decoration: none; }
       .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
 
-      /* ===========================
-         NAV
-      ============================ */
+      /* ===================== NAV ===================== */
       .nav {
         position: fixed;
         top: 0; left: 0; right: 0;
@@ -97,7 +87,7 @@ ASSETS USED (keep in /assets/):
         display: flex;
         align-items: center;
         gap: 10px;
-        font-weight: 900;
+        font-weight: 800;
         letter-spacing: 0.2px;
       }
 
@@ -115,7 +105,6 @@ ASSETS USED (keep in /assets/):
         gap: 18px;
         color: var(--muted);
         font-size: 14px;
-        font-weight: 750;
       }
       .nav-links a:hover { color: var(--text); }
 
@@ -129,13 +118,11 @@ ASSETS USED (keep in /assets/):
         background: rgba(255, 255, 255, 0.65);
         color: var(--text);
         font-size: 14px;
-        font-weight: 900;
+        font-weight: 800;
       }
       .pill:hover { border-color: rgba(18, 59, 59, 0.25); }
 
-      /* ===========================
-         BUTTONS
-      ============================ */
+      /* ===================== BUTTONS ===================== */
       .btn {
         display: inline-flex;
         align-items: center;
@@ -144,32 +131,28 @@ ASSETS USED (keep in /assets/):
         padding: 12px 16px;
         border-radius: 14px;
         border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.86);
         color: var(--text);
-        font-weight: 950;
+        font-weight: 900;
         font-size: 14px;
         cursor: pointer;
         transition: transform 160ms ease, border-color 160ms ease;
         white-space: nowrap;
       }
-
       .btn:hover {
         border-color: rgba(18, 59, 59, 0.28);
         transform: translateY(-1px);
       }
-
       .btn-primary {
         border-color: rgba(243, 211, 122, 0.45);
-        background: linear-gradient(135deg, rgba(243, 211, 122, 0.85), rgba(121, 183, 255, 0.55));
+        background: linear-gradient(135deg, rgba(243, 211, 122, 0.78), rgba(121, 183, 255, 0.55));
       }
 
-      /* ===========================
-         HERO
-      ============================ */
+      /* ===================== HERO ===================== */
       .hero {
         position: relative;
         padding-top: 92px; /* nav offset */
-        padding-bottom: 28px;
+        padding-bottom: 26px;
       }
 
       .hero-bg {
@@ -194,7 +177,7 @@ ASSETS USED (keep in /assets/):
       .hero-panel {
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.72);
         box-shadow: var(--shadow2);
         padding: 26px 24px;
         display: grid;
@@ -208,11 +191,11 @@ ASSETS USED (keep in /assets/):
         gap: 10px;
         padding: 8px 12px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.86);
+        background: rgba(255, 255, 255, 0.82);
         border: 1px solid rgba(18, 59, 59, 0.12);
         color: var(--muted);
         font-size: 13px;
-        font-weight: 900;
+        font-weight: 800;
         width: fit-content;
       }
 
@@ -252,7 +235,7 @@ ASSETS USED (keep in /assets/):
       .mini {
         color: var(--muted);
         font-size: 13px;
-        font-weight: 800;
+        font-weight: 750;
       }
 
       .hero-image {
@@ -291,9 +274,7 @@ ASSETS USED (keep in /assets/):
         letter-spacing: 0.1px;
       }
 
-      /* ===========================
-         WHAT WE MAKE (NORMAL FLOW)
-      ============================ */
+      /* ===================== WHAT WE MAKE ===================== */
       .make-band {
         margin-top: 18px;
         border-radius: calc(var(--radius) + 10px);
@@ -303,7 +284,7 @@ ASSETS USED (keep in /assets/):
         background:
           radial-gradient(900px 420px at 10% 30%, rgba(121,183,255,0.18), transparent 60%),
           radial-gradient(900px 420px at 90% 60%, rgba(243,211,122,0.20), transparent 60%),
-          linear-gradient(135deg, rgba(255,255,255,0.86), rgba(255,255,255,0.66));
+          linear-gradient(135deg, rgba(255,255,255,0.80), rgba(255,255,255,0.56));
       }
 
       .make-band-inner {
@@ -332,7 +313,7 @@ ASSETS USED (keep in /assets/):
         color: #0f2f2f;
         padding: 7px 10px;
         border-radius: 999px;
-        background: rgba(243, 211, 122, 0.95);
+        background: rgba(243, 211, 122, 0.92);
         border: 1px solid rgba(18, 59, 59, 0.12);
       }
 
@@ -345,7 +326,7 @@ ASSETS USED (keep in /assets/):
       .make-item {
         border-radius: 16px;
         border: 1px solid rgba(18,59,59,0.12);
-        background: rgba(255,255,255,0.86);
+        background: rgba(255,255,255,0.72);
         padding: 12px 12px;
         color: var(--teal-dark);
         min-height: 92px;
@@ -366,14 +347,9 @@ ASSETS USED (keep in /assets/):
         font-weight: 650;
       }
 
-      .make-actions {
-        display: flex;
-        justify-content: flex-end;
-      }
+      .make-actions { display: flex; justify-content: flex-end; }
 
-      /* ===========================
-         SECTIONS
-      ============================ */
+      /* ===================== SECTIONS ===================== */
       .section { padding: 40px 0 54px; }
       .section h2 {
         margin: 0 0 10px;
@@ -381,7 +357,6 @@ ASSETS USED (keep in /assets/):
         letter-spacing: -0.3px;
         color: #0f2f2f;
       }
-
       .lead {
         margin: 0 0 18px;
         color: var(--muted);
@@ -390,183 +365,194 @@ ASSETS USED (keep in /assets/):
         font-weight: 650;
       }
 
-      /* ===========================
-         MOSAIC (GRID FIRST, SAFE OVERLAPS)
-         - No absolute positioning for the BIG blocks
-         - Only photos are “overlayed” inside each tile
-         - Section is isolated so it can NEVER ghost over other sections
-      ============================ */
-      #mosaic.section {
-        padding-top: 64px;
-        position: relative;
-        z-index: 0;
-        isolation: isolate;
-        overflow: hidden;
-      }
+      /* ===================== MOSAIC (NO ABSOLUTE) ===================== */
+      #mosaic { padding-top: 64px; }
 
-      .mosaic-stage {
-        position: relative;
-        border-radius: calc(var(--radius) + 14px);
-        border: 1px solid rgba(18,59,59,0.10);
-        background: rgba(255,255,255,0.55);
-        box-shadow: var(--shadow2);
-        padding: 18px;
-      }
-
-      /* The big blocks are a grid */
+      /* One grid. Everything is in-flow (no “covering future sections”). */
       .mosaic-grid {
+        margin-top: 22px;
         display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        grid-template-rows: auto auto;
-        gap: 18px;
-        align-items: start;
+        grid-template-columns: repeat(12, 1fr);
+        gap: clamp(14px, 2vw, 18px);
+        align-items: stretch;
+        position: relative;
       }
 
-      .tile {
-        position: relative;
+      /* Base card */
+      .m-card {
         border-radius: 48px;
         border: 1px solid rgba(18,59,59,0.12);
         box-shadow: var(--shadow);
         overflow: hidden;
-      }
-
-      .tile-inner {
         position: relative;
-        z-index: 2;
-        padding: 22px;
-        display: grid;
-        gap: 10px;
+        background: rgba(255,255,255,0.78);
+        min-height: 140px;
       }
 
-      .tile-title {
+      .m-pad { padding: 22px; }
+
+      .m-title {
         font-weight: 1000;
         letter-spacing: 0.2px;
         color: var(--teal-dark);
-        font-size: 22px;
+        font-size: clamp(20px, 2vw, 26px);
+        margin-bottom: 8px;
       }
 
-      .tile-sub {
+      .m-sub {
         color: var(--teal-dark);
         font-weight: 750;
         line-height: 1.45;
         font-size: 14px;
         max-width: 52ch;
+        margin-bottom: 12px;
       }
 
-      .chiprow { display: flex; gap: 10px; flex-wrap: wrap; }
+      .m-chiprow { display: flex; gap: 10px; flex-wrap: wrap; }
 
-      .chip {
+      .m-chip {
         display: inline-flex;
         align-items: center;
         gap: 8px;
         padding: 10px 12px;
         border-radius: 999px;
         border: 1px solid rgba(18,59,59,0.12);
-        background: rgba(255,255,255,0.85);
+        background: rgba(255,255,255,0.70);
         color: var(--teal-dark);
         font-weight: 950;
         font-size: 13px;
         width: fit-content;
       }
-      .chip:hover { border-color: rgba(18,59,59,0.24); }
+      .m-chip:hover { border-color: rgba(18,59,59,0.24); }
 
-      /* OPAQUE, on-brand backgrounds (no see-through) */
-      .bg-yellow { background: rgba(243,211,122,0.92); }
-      .bg-coral  { background: rgba(242,162,92,0.78); }
-      .bg-teal   { background: rgba(155,214,210,0.85); }
+      /* Color blocks */
+      .bg-yellow { background: rgba(243,211,122,0.78); }
+      .bg-teal   { background: rgba(155,214,210,0.62); }
+      .bg-coral  { background: rgba(242,162,92,0.60); }
+      .bg-blue   { background: rgba(121,183,255,0.34); }
+      .bg-cream  { background: rgba(255,248,238,0.92); }
 
-      /* Photo overlays (safe: inside a tile, clipped by overflow) */
-      .photo {
-        position: absolute;
-        border-radius: 38px;
-        border: 1px solid rgba(18,59,59,0.12);
-        box-shadow: var(--shadow);
-        overflow: hidden;
-        z-index: 1;
-        background: rgba(255,255,255,0.92);
-      }
-
-      .photo::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.78));
-        pointer-events: none;
+      /* Image cards */
+      .m-img { background: rgba(255,255,255,0.65); }
+      .m-img::before{
+        content:"";
+        position:absolute; inset:0;
+        background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.80));
+        pointer-events:none;
         z-index: 1;
       }
-
-      .photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
+      .m-img img{
         position: relative;
+        z-index: 0;
+        width:100%;
+        height:100%;
+        object-fit: cover;
+        display:block;
+      }
+
+      /* ===== DESKTOP LAYOUT (12-col) =====
+         Key idea:
+         - Text cards span wide; image cards are separate grid items.
+         - “Overlap” is done with safe negative margins + z-index,
+           not absolute positioning, so it scales and never breaks flow.
+      */
+
+      /* Clean designs (top-left big) */
+      .clean {
+        grid-column: 1 / span 8;
+        grid-row: 1 / span 6;
+        z-index: 3;
+        padding-right: clamp(220px, 22vw, 360px); /* reserve area for pic1 */
+      }
+
+      /* Quality materials (top-right big) */
+      .quality {
+        grid-column: 9 / span 4;
+        grid-row: 1 / span 6;
+        z-index: 3;
+        padding-bottom: 8px;
+      }
+
+      /* Timelapses (bottom-left big) */
+      .time {
+        grid-column: 1 / span 8;
+        grid-row: 7 / span 6;
+        z-index: 3;
+        padding-right: clamp(220px, 22vw, 360px); /* reserve area for pic3 */
+      }
+
+      /* “Background slab” (optional, keeps the airy panel behind the collage) */
+      .slab {
+        grid-column: 1 / -1;
+        grid-row: 1 / span 12;
+        border-radius: 56px;
+        background: rgba(255,255,255,0.32);
+        border: 1px solid rgba(18,59,59,0.10);
+        box-shadow: var(--shadow2);
         z-index: 0;
       }
 
-      /* Reserve space so photos never cover text/buttons */
-      .tile.has-right-photo .tile-inner {
-        padding-right: clamp(240px, 28vw, 360px);
-      }
-
-      /* Specific photo placements (relative to their tile) */
-      .clean-photo {
-        right: 14px;
-        top: 16px;
-        width: clamp(220px, 26vw, 360px);
-        height: clamp(150px, 18vw, 190px);
-      }
-
-      .time-photo {
-        right: 14px;
-        bottom: 16px;
-        width: clamp(220px, 26vw, 360px);
-        height: clamp(160px, 20vw, 210px);
-      }
-
-      /* “pic2” floats between clean + timelapses visually, but is anchored to the stage (not the page) */
-      .stage-photo {
-        position: absolute;
-        left: clamp(60px, 5vw, 90px);
-        top: clamp(210px, 22vw, 320px);
-        width: clamp(280px, 34vw, 520px);
-        height: clamp(170px, 18vw, 240px);
-        border-radius: 44px;
-        z-index: 3;
-        opacity: 0.98;
-      }
-
-      /* “pic4” bridge near seam between columns */
-      .bridge-photo {
-        position: absolute;
-        left: 55%;
-        top: clamp(380px, 38vw, 520px);
-        transform: translateX(-50%);
-        width: clamp(220px, 24vw, 360px);
-        height: clamp(160px, 18vw, 240px);
-        border-radius: 44px;
-        z-index: 4;
-      }
-
-      /* “pic5” hugs outside edge of Quality materials tile */
-      .edge-photo {
-        position: absolute;
-        right: clamp(-14px, -1vw, -8px);
-        top: clamp(220px, 22vw, 320px);
-        width: clamp(180px, 20vw, 300px);
-        height: clamp(140px, 16vw, 220px);
-        border-radius: 44px;
+      /* pic1 sits in the reserved right side of Clean designs */
+      .pic1 {
+        grid-column: 7 / span 3;   /* overlaps clean */
+        grid-row: 2 / span 4;
         z-index: 2;
+        border-radius: 38px;
+        aspect-ratio: 4 / 3;
+        min-height: 150px;
+        margin-left: -18px;        /* gentle overlap */
       }
 
-      /* Tile sizing (keeps the vibe similar to your sketch) */
-      .tile.clean     { min-height: 240px; }
-      .tile.timelapse { min-height: 240px; }
-      .tile.quality   { min-height: 300px; }
+      /* pic2 touches Clean + Time (the “between” photo) */
+      .pic2 {
+        grid-column: 2 / span 5;
+        grid-row: 5 / span 5;
+        z-index: 2;
+        border-radius: 42px;
+        aspect-ratio: 16 / 10;
+        min-height: 180px;
+        margin-top: -12px;
+      }
 
-      /* ===========================
-         BOTTOM CTA
-      ============================ */
+      /* pic3 sits in reserved right side of Timelapses */
+      .pic3 {
+        grid-column: 7 / span 3;
+        grid-row: 8 / span 4;
+        z-index: 2;
+        border-radius: 38px;
+        aspect-ratio: 4 / 3;
+        min-height: 160px;
+        margin-left: -18px;
+      }
+
+      /* pic4 bridges Timelapses + Quality */
+      .pic4 {
+        grid-column: 7 / span 3;
+        grid-row: 7 / span 4;
+        z-index: 4;               /* on top, but NOT on top of text (it’s not over text areas) */
+        border-radius: 44px;
+        aspect-ratio: 1 / 1;
+        min-height: 170px;
+        margin-top: 10px;
+        margin-left: 6px;
+      }
+
+      /* pic5 hugs outer edge of Quality (right side) */
+      .pic5 {
+        grid-column: 11 / span 2;
+        grid-row: 4 / span 4;
+        z-index: 2;
+        border-radius: 44px;
+        aspect-ratio: 4 / 5;
+        min-height: 170px;
+        margin-left: 10px;
+        margin-right: -10px;      /* “hug” the outer edge */
+      }
+
+      /* Keep text always above any overlap “within” the card */
+      .m-pad { position: relative; z-index: 5; }
+
+      /* ===================== BOTTOM CTA ===================== */
       .cta-band {
         border-radius: calc(var(--radius) + 10px);
         border: 1px solid rgba(18, 59, 59, 0.14);
@@ -574,7 +560,7 @@ ASSETS USED (keep in /assets/):
           135deg,
           rgba(243, 211, 122, 0.22),
           rgba(121, 183, 255, 0.16),
-          rgba(255, 255, 255, 0.78)
+          rgba(255, 255, 255, 0.72)
         );
         padding: 22px;
         display: flex;
@@ -599,9 +585,7 @@ ASSETS USED (keep in /assets/):
         font-weight: 650;
       }
 
-      /* ===========================
-         FOOTER
-      ============================ */
+      /* ===================== FOOTER ===================== */
       footer {
         margin-top: 34px;
         padding: 26px 0 42px;
@@ -626,7 +610,6 @@ ASSETS USED (keep in /assets/):
         flex-wrap: wrap;
         align-items: center;
       }
-
       .footer-links a { font-weight: 900; color: var(--teal-dark); }
       .footer-links a:hover { color: var(--coral-dark); }
 
@@ -636,7 +619,6 @@ ASSETS USED (keep in /assets/):
         flex-wrap: wrap;
         align-items: center;
       }
-
       .contact-mini a {
         display: inline-flex;
         align-items: center;
@@ -644,32 +626,65 @@ ASSETS USED (keep in /assets/):
         padding: 9px 12px;
         border-radius: 999px;
         border: 1px solid rgba(18, 59, 59, 0.14);
-        background: rgba(255, 255, 255, 0.86);
+        background: rgba(255, 255, 255, 0.78);
         color: var(--teal-dark);
         font-weight: 950;
       }
       .contact-mini a:hover { border-color: rgba(18, 59, 59, 0.26); }
 
-      /* ===========================
-         RESPONSIVE
-      ============================ */
+      /* ===================== RESPONSIVE ===================== */
       @media (max-width: 980px) {
         .hero-frame { grid-template-columns: 1fr; }
         .hero-image { min-height: 320px; }
         .make-grid { grid-template-columns: 1fr 1fr; }
-        .mosaic-grid { grid-template-columns: 1fr; }
-        .tile.quality { min-height: 260px; }
-        .edge-photo { display: none; } /* reduce clutter */
+
+        /* Mosaic becomes 8 columns for simpler placement */
+        .mosaic-grid { grid-template-columns: repeat(8, 1fr); }
+
+        .slab { grid-column: 1 / -1; grid-row: 1 / span 14; }
+
+        .clean   { grid-column: 1 / span 8; grid-row: 1 / span 5; padding-right: clamp(200px, 34vw, 320px); }
+        .quality { grid-column: 1 / span 8; grid-row: 6 / span 5; }
+        .time    { grid-column: 1 / span 8; grid-row: 11 / span 5; padding-right: clamp(200px, 34vw, 320px); }
+
+        .pic1 { grid-column: 6 / span 3; grid-row: 2 / span 3; margin-left: -12px; }
+        .pic2 { grid-column: 1 / span 6; grid-row: 5 / span 4; }
+        .pic3 { grid-column: 6 / span 3; grid-row: 12 / span 3; margin-left: -12px; }
+
+        /* keep bridge/edge, but smaller */
+        .pic4 { grid-column: 5 / span 3; grid-row: 9 / span 3; margin-left: 0; }
+        .pic5 { grid-column: 6 / span 3; grid-row: 8 / span 3; margin-right: -6px; }
       }
 
       @media (max-width: 760px) {
         .nav-links { display: none; }
         .make-grid { grid-template-columns: 1fr; }
-        .tile.has-right-photo .tile-inner { padding-right: 22px; }
-        .clean-photo, .time-photo { display: none; }
-        .stage-photo { display: none; }
-        .bridge-photo { display: none; }
-        .mosaic-stage { padding: 14px; }
+
+        .mosaic-grid { grid-template-columns: 1fr; }
+
+        /* Stack clean/quality/time in normal flow; images become “inline” cards */
+        .slab { display:none; }
+
+        .clean, .quality, .time,
+        .pic1, .pic2, .pic3, .pic4, .pic5 {
+          grid-column: 1;
+          margin: 0;
+        }
+
+        .clean   { grid-row: auto; padding-right: 22px; }
+        .quality { grid-row: auto; }
+        .time    { grid-row: auto; padding-right: 22px; }
+
+        /* On small screens: show 2–3 pics max for cleanliness */
+        .pic1, .pic3 { display: none; }
+        .pic5 { display: none; }
+
+        .pic2, .pic4 {
+          display: block;
+          aspect-ratio: 16 / 10;
+          border-radius: 36px;
+          min-height: 180px;
+        }
       }
 
       @media (max-width: 520px) {
@@ -783,75 +798,70 @@ ASSETS USED (keep in /assets/):
             A few ways Beaming With Joy adds personality — mix-and-match categories, materials, and the vibe you want.
           </p>
 
-          <div class="mosaic-stage" aria-label="Mosaic highlights">
-            <!-- stage-anchored floating photos -->
-            <div class="photo stage-photo">
+          <div class="mosaic-grid" aria-label="Mosaic highlights">
+            <div class="m-card slab" aria-hidden="true"></div>
+
+            <div class="m-card bg-yellow clean">
+              <div class="m-pad">
+                <div class="m-title">Clean designs</div>
+                <div class="m-sub">
+                  Modern, photogenic layouts that don’t feel generic — built to match your theme.
+                </div>
+                <div class="m-chiprow">
+                  <a class="m-chip" href="shop.html#events">Event Glow-Ups</a>
+                  <a class="m-chip" href="shop.html#biz">Brand Boost</a>
+                  <a class="m-chip" href="#custom">Custom</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="m-card m-img bg-cream pic1" aria-label="Sample product photo 1">
+              <img src="assets/basic_invite.jpg" alt="Sample product photo 1" />
+            </div>
+
+            <div class="m-card m-img bg-blue pic2" aria-label="Sample product photo 2">
               <img src="assets/basic_glassware.jpg" alt="Sample product photo 2" />
             </div>
 
-            <div class="photo bridge-photo">
+            <div class="m-card bg-teal quality">
+              <div class="m-pad">
+                <div class="m-title">Quality materials</div>
+                <div class="m-sub">
+                  Glass, wood, acrylic — chosen for crisp engraving and a clean, gift-worthy finish.
+                </div>
+                <div class="m-chiprow">
+                  <a class="m-chip" href="shop.html#glass">Glass & Shine</a>
+                  <a class="m-chip" href="shop.html#kids">Kid Joy</a>
+                  <a class="m-chip" href="shop.html">All products</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="m-card bg-coral time">
+              <div class="m-pad">
+                <div class="m-title">Timelapses</div>
+                <div class="m-sub">
+                  Behind-the-scenes making + satisfying finishes (perfect for Instagram).
+                </div>
+                <div class="m-chiprow">
+                  <a class="m-chip" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener">
+                    Watch on IG
+                  </a>
+                  <a class="m-chip" href="shop.html">Shop</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="m-card m-img bg-cream pic3" aria-label="Sample product photo 3">
+              <img src="assets/basic_woodwork.jpg" alt="Sample product photo 3" />
+            </div>
+
+            <div class="m-card m-img bg-cream pic4" aria-label="Sample product photo 4">
               <img src="assets/basic_bc.jpg" alt="Sample product photo 4" />
             </div>
 
-            <div class="photo edge-photo">
+            <div class="m-card m-img bg-cream pic5" aria-label="Sample product photo 5">
               <img src="assets/basic_invite.jpg" alt="Sample product photo 5" />
-            </div>
-
-            <div class="mosaic-grid">
-              <!-- Clean designs -->
-              <div class="tile bg-yellow clean has-right-photo">
-                <div class="tile-inner">
-                  <div class="tile-title">Clean designs</div>
-                  <div class="tile-sub">
-                    Modern, photogenic layouts that don’t feel generic — built to match your theme.
-                  </div>
-                  <div class="chiprow">
-                    <a class="chip" href="shop.html#events">Event Glow-Ups</a>
-                    <a class="chip" href="shop.html#biz">Brand Boost</a>
-                    <a class="chip" href="#custom">Custom</a>
-                  </div>
-                </div>
-                <div class="photo clean-photo" aria-hidden="true">
-                  <img src="assets/basic_invite.jpg" alt="" />
-                </div>
-              </div>
-
-              <!-- Quality materials -->
-              <div class="tile bg-teal quality">
-                <div class="tile-inner">
-                  <div class="tile-title">Quality materials</div>
-                  <div class="tile-sub">
-                    Glass, wood, acrylic — chosen for crisp engraving and a clean, gift-worthy finish.
-                  </div>
-                  <div class="chiprow">
-                    <a class="chip" href="shop.html#glass">Glass & Shine</a>
-                    <a class="chip" href="shop.html#kids">Kid Joy</a>
-                    <a class="chip" href="shop.html">All products</a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Timelapses -->
-              <div class="tile bg-coral timelapse has-right-photo">
-                <div class="tile-inner">
-                  <div class="tile-title">Timelapses</div>
-                  <div class="tile-sub">
-                    Behind-the-scenes making + satisfying finishes (perfect for Instagram).
-                  </div>
-                  <div class="chiprow">
-                    <a class="chip" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener">
-                      Watch on IG
-                    </a>
-                    <a class="chip" href="shop.html">Shop</a>
-                  </div>
-                </div>
-                <div class="photo time-photo" aria-hidden="true">
-                  <img src="assets/basic_woodwork.jpg" alt="" />
-                </div>
-              </div>
-
-              <!-- (Empty spacer on desktop so the grid feels like the sketch; collapses on mobile) -->
-              <div class="tile" style="opacity: 0; border: 0; box-shadow: none; background: transparent;"></div>
             </div>
           </div>
         </div>
@@ -874,7 +884,7 @@ ASSETS USED (keep in /assets/):
       </section>
     </main>
 
-    <!-- FOOTER -->
+    <!-- FOOTER (CONTACT) -->
     <footer id="contact">
       <div class="container">
         <div class="footer-row">
