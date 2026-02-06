@@ -1,14 +1,18 @@
-```html
 <!--
-Beaming With Joy — Homepage (fixes + new “mosaic” section)
-FIXES:
-- “What we make” no longer covers content (in normal flow, not absolute)
-- “What we make” uses light, on-brand ombre (no dark off-theme)
-- Hero spacing cleaned up; no overlap with right image / headings
-CHANGE:
-- Replace “Shop by category” + “Made with joy” with a responsive mosaic block section
-  (some blocks are images; some are colorful text blocks; some hide on small screens)
-FOOTER + bottom CTA kept (you said perfect)
+Beaming With Joy — Homepage (CLEAN REWRITE)
+GOALS:
+- No “ghosting”/see-through/stacking bugs (mosaic is isolated + opaque; no overlap with other sections)
+- Hero + “What we make” stays clean, on-brand, and in normal flow
+- Mosaic uses CSS GRID for the big blocks (not absolute), and only uses small, controlled overlaps for photos
+- Photos never cover text/buttons (text columns reserve space; overlays are clipped and z-indexed)
+- Responsive: some photos hide on smaller screens; layout reflows gracefully
+
+ASSETS USED (keep in /assets/):
+- MAIN_HOME_IMAGE.png
+- basic_invite.jpg
+- basic_glassware.jpg
+- basic_woodwork.jpg
+- basic_bc.jpg
 -->
 
 <!DOCTYPE html>
@@ -21,6 +25,7 @@ FOOTER + bottom CTA kept (you said perfect)
       name="description"
       content="Laser-engraved gifts, custom event signs, woodwork, glassware, and playful one-offs — designed and made with joy."
     />
+
     <style>
       :root {
         --bg1: #fdfefe;
@@ -68,7 +73,9 @@ FOOTER + bottom CTA kept (you said perfect)
       a { color: inherit; text-decoration: none; }
       .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
 
-      /* Top nav */
+      /* ===========================
+         NAV
+      ============================ */
       .nav {
         position: fixed;
         top: 0; left: 0; right: 0;
@@ -90,7 +97,7 @@ FOOTER + bottom CTA kept (you said perfect)
         display: flex;
         align-items: center;
         gap: 10px;
-        font-weight: 800;
+        font-weight: 900;
         letter-spacing: 0.2px;
       }
 
@@ -108,8 +115,8 @@ FOOTER + bottom CTA kept (you said perfect)
         gap: 18px;
         color: var(--muted);
         font-size: 14px;
+        font-weight: 750;
       }
-
       .nav-links a:hover { color: var(--text); }
 
       .pill {
@@ -122,16 +129,47 @@ FOOTER + bottom CTA kept (you said perfect)
         background: rgba(255, 255, 255, 0.65);
         color: var(--text);
         font-size: 14px;
-        font-weight: 800;
+        font-weight: 900;
       }
-
       .pill:hover { border-color: rgba(18, 59, 59, 0.25); }
 
-      /* Hero */
+      /* ===========================
+         BUTTONS
+      ============================ */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px 16px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--text);
+        font-weight: 950;
+        font-size: 14px;
+        cursor: pointer;
+        transition: transform 160ms ease, border-color 160ms ease;
+        white-space: nowrap;
+      }
+
+      .btn:hover {
+        border-color: rgba(18, 59, 59, 0.28);
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        border-color: rgba(243, 211, 122, 0.45);
+        background: linear-gradient(135deg, rgba(243, 211, 122, 0.85), rgba(121, 183, 255, 0.55));
+      }
+
+      /* ===========================
+         HERO
+      ============================ */
       .hero {
         position: relative;
         padding-top: 92px; /* nav offset */
-        padding-bottom: 26px;
+        padding-bottom: 28px;
       }
 
       .hero-bg {
@@ -156,7 +194,7 @@ FOOTER + bottom CTA kept (you said perfect)
       .hero-panel {
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.72);
+        background: rgba(255, 255, 255, 0.78);
         box-shadow: var(--shadow2);
         padding: 26px 24px;
         display: grid;
@@ -170,11 +208,11 @@ FOOTER + bottom CTA kept (you said perfect)
         gap: 10px;
         padding: 8px 12px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.82);
+        background: rgba(255, 255, 255, 0.86);
         border: 1px solid rgba(18, 59, 59, 0.12);
         color: var(--muted);
         font-size: 13px;
-        font-weight: 800;
+        font-weight: 900;
         width: fit-content;
       }
 
@@ -211,37 +249,10 @@ FOOTER + bottom CTA kept (you said perfect)
         margin-top: 8px;
       }
 
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 12px 16px;
-        border-radius: 14px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.86);
-        color: var(--text);
-        font-weight: 900;
-        font-size: 14px;
-        cursor: pointer;
-        transition: transform 160ms ease, border-color 160ms ease;
-        white-space: nowrap;
-      }
-
-      .btn:hover {
-        border-color: rgba(18, 59, 59, 0.28);
-        transform: translateY(-1px);
-      }
-
-      .btn-primary {
-        border-color: rgba(243, 211, 122, 0.45);
-        background: linear-gradient(135deg, rgba(243, 211, 122, 0.78), rgba(121, 183, 255, 0.55));
-      }
-
       .mini {
         color: var(--muted);
         font-size: 13px;
-        font-weight: 750;
+        font-weight: 800;
       }
 
       .hero-image {
@@ -280,7 +291,9 @@ FOOTER + bottom CTA kept (you said perfect)
         letter-spacing: 0.1px;
       }
 
-      /* “What we make” band (NOT absolute; on-brand; never covers content) */
+      /* ===========================
+         WHAT WE MAKE (NORMAL FLOW)
+      ============================ */
       .make-band {
         margin-top: 18px;
         border-radius: calc(var(--radius) + 10px);
@@ -290,7 +303,7 @@ FOOTER + bottom CTA kept (you said perfect)
         background:
           radial-gradient(900px 420px at 10% 30%, rgba(121,183,255,0.18), transparent 60%),
           radial-gradient(900px 420px at 90% 60%, rgba(243,211,122,0.20), transparent 60%),
-          linear-gradient(135deg, rgba(255,255,255,0.80), rgba(255,255,255,0.56));
+          linear-gradient(135deg, rgba(255,255,255,0.86), rgba(255,255,255,0.66));
       }
 
       .make-band-inner {
@@ -319,7 +332,7 @@ FOOTER + bottom CTA kept (you said perfect)
         color: #0f2f2f;
         padding: 7px 10px;
         border-radius: 999px;
-        background: rgba(243, 211, 122, 0.92);
+        background: rgba(243, 211, 122, 0.95);
         border: 1px solid rgba(18, 59, 59, 0.12);
       }
 
@@ -332,7 +345,7 @@ FOOTER + bottom CTA kept (you said perfect)
       .make-item {
         border-radius: 16px;
         border: 1px solid rgba(18,59,59,0.12);
-        background: rgba(255,255,255,0.72);
+        background: rgba(255,255,255,0.86);
         padding: 12px 12px;
         color: var(--teal-dark);
         min-height: 92px;
@@ -358,7 +371,9 @@ FOOTER + bottom CTA kept (you said perfect)
         justify-content: flex-end;
       }
 
-      /* Sections */
+      /* ===========================
+         SECTIONS
+      ============================ */
       .section { padding: 40px 0 54px; }
       .section h2 {
         margin: 0 0 10px;
@@ -375,137 +390,183 @@ FOOTER + bottom CTA kept (you said perfect)
         font-weight: 650;
       }
 
-      /* Mosaic (replaces “Shop by category” + “Made with Joy”) */
-      .mosaic-wrap {
+      /* ===========================
+         MOSAIC (GRID FIRST, SAFE OVERLAPS)
+         - No absolute positioning for the BIG blocks
+         - Only photos are “overlayed” inside each tile
+         - Section is isolated so it can NEVER ghost over other sections
+      ============================ */
+      #mosaic.section {
+        padding-top: 64px;
         position: relative;
+        z-index: 0;
+        isolation: isolate;
+        overflow: hidden;
+      }
+
+      .mosaic-stage {
+        position: relative;
+        border-radius: calc(var(--radius) + 14px);
+        border: 1px solid rgba(18,59,59,0.10);
+        background: rgba(255,255,255,0.55);
+        box-shadow: var(--shadow2);
+        padding: 18px;
+      }
+
+      /* The big blocks are a grid */
+      .mosaic-grid {
         display: grid;
         grid-template-columns: 1.15fr 0.85fr;
+        grid-template-rows: auto auto;
         gap: 18px;
         align-items: start;
       }
 
-      .mosaic-left,
-      .mosaic-right {
+      .tile {
         position: relative;
-        min-height: 560px;
-      }
-
-      .m-block {
-        position: absolute;
         border-radius: 48px;
         border: 1px solid rgba(18,59,59,0.12);
         box-shadow: var(--shadow);
         overflow: hidden;
-        background: rgba(255,255,255,0.78);
       }
 
-      .m-block .m-inner {
+      .tile-inner {
+        position: relative;
+        z-index: 2;
         padding: 22px;
         display: grid;
         gap: 10px;
       }
 
-      .m-title {
+      .tile-title {
         font-weight: 1000;
         letter-spacing: 0.2px;
         color: var(--teal-dark);
         font-size: 22px;
       }
 
-      .m-sub {
+      .tile-sub {
         color: var(--teal-dark);
-        font-weight: 700;
+        font-weight: 750;
         line-height: 1.45;
         font-size: 14px;
         max-width: 52ch;
       }
 
-      .m-chiprow { display: flex; gap: 10px; flex-wrap: wrap; }
+      .chiprow { display: flex; gap: 10px; flex-wrap: wrap; }
 
-      .m-chip {
+      .chip {
         display: inline-flex;
         align-items: center;
         gap: 8px;
         padding: 10px 12px;
         border-radius: 999px;
         border: 1px solid rgba(18,59,59,0.12);
-        background: rgba(255,255,255,0.70);
+        background: rgba(255,255,255,0.85);
         color: var(--teal-dark);
-        font-weight: 900;
+        font-weight: 950;
         font-size: 13px;
         width: fit-content;
       }
+      .chip:hover { border-color: rgba(18,59,59,0.24); }
 
-      .m-chip:hover { border-color: rgba(18,59,59,0.24); }
+      /* OPAQUE, on-brand backgrounds (no see-through) */
+      .bg-yellow { background: rgba(243,211,122,0.92); }
+      .bg-coral  { background: rgba(242,162,92,0.78); }
+      .bg-teal   { background: rgba(155,214,210,0.85); }
 
-      /* Mosaic block styles */
-      .m-yellow { background: rgba(243,211,122,0.72); }
-      .m-blue { background: rgba(121,183,255,0.34); }
-      .m-teal { background: rgba(155,214,210,0.55); }
-      .m-coral { background: rgba(242,162,92,0.55); }
-      .m-cream { background: rgba(255,248,238,0.90); }
+      /* Photo overlays (safe: inside a tile, clipped by overflow) */
+      .photo {
+        position: absolute;
+        border-radius: 38px;
+        border: 1px solid rgba(18,59,59,0.12);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        z-index: 1;
+        background: rgba(255,255,255,0.92);
+      }
 
-      .m-img::before {
+      .photo::before {
         content: "";
         position: absolute;
         inset: 0;
         background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.78));
         pointer-events: none;
+        z-index: 1;
       }
 
-      .m-img > img {
+      .photo img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
+        position: relative;
+        z-index: 0;
       }
 
-      /* Left stack (like your sketch) */
-      .m-clean {
-        left: 0;
-        top: 0;
-        width: 92%;
-        height: 210px;
+      /* Reserve space so photos never cover text/buttons */
+      .tile.has-right-photo .tile-inner {
+        padding-right: clamp(240px, 28vw, 360px);
       }
 
-      .m-pic1 {
-        right: 0;
-        top: 18px;
-        width: 42%;
-        height: 170px;
+      /* Specific photo placements (relative to their tile) */
+      .clean-photo {
+        right: 14px;
+        top: 16px;
+        width: clamp(220px, 26vw, 360px);
+        height: clamp(150px, 18vw, 190px);
       }
 
-      .m-pic2 {
-        left: 8%;
-        top: 170px;
-        width: 46%;
-        height: 190px;
-      }
-
-      /* Right big “quality materials” */
-      .m-quality {
-        right: 0;
-        top: 140px;
-        width: 86%;
-        height: 260px;
-      }
-
-      /* Bottom “timelapses” */
-      .m-time {
-        left: 0;
-        bottom: 0;
-        width: 88%;
-        height: 220px;
-      }
-
-      .m-pic3 {
-        right: 0;
+      .time-photo {
+        right: 14px;
         bottom: 16px;
-        width: 46%;
-        height: 190px;
+        width: clamp(220px, 26vw, 360px);
+        height: clamp(160px, 20vw, 210px);
       }
 
-      /* Bottom CTA */
+      /* “pic2” floats between clean + timelapses visually, but is anchored to the stage (not the page) */
+      .stage-photo {
+        position: absolute;
+        left: clamp(60px, 5vw, 90px);
+        top: clamp(210px, 22vw, 320px);
+        width: clamp(280px, 34vw, 520px);
+        height: clamp(170px, 18vw, 240px);
+        border-radius: 44px;
+        z-index: 3;
+        opacity: 0.98;
+      }
+
+      /* “pic4” bridge near seam between columns */
+      .bridge-photo {
+        position: absolute;
+        left: 55%;
+        top: clamp(380px, 38vw, 520px);
+        transform: translateX(-50%);
+        width: clamp(220px, 24vw, 360px);
+        height: clamp(160px, 18vw, 240px);
+        border-radius: 44px;
+        z-index: 4;
+      }
+
+      /* “pic5” hugs outside edge of Quality materials tile */
+      .edge-photo {
+        position: absolute;
+        right: clamp(-14px, -1vw, -8px);
+        top: clamp(220px, 22vw, 320px);
+        width: clamp(180px, 20vw, 300px);
+        height: clamp(140px, 16vw, 220px);
+        border-radius: 44px;
+        z-index: 2;
+      }
+
+      /* Tile sizing (keeps the vibe similar to your sketch) */
+      .tile.clean     { min-height: 240px; }
+      .tile.timelapse { min-height: 240px; }
+      .tile.quality   { min-height: 300px; }
+
+      /* ===========================
+         BOTTOM CTA
+      ============================ */
       .cta-band {
         border-radius: calc(var(--radius) + 10px);
         border: 1px solid rgba(18, 59, 59, 0.14);
@@ -513,7 +574,7 @@ FOOTER + bottom CTA kept (you said perfect)
           135deg,
           rgba(243, 211, 122, 0.22),
           rgba(121, 183, 255, 0.16),
-          rgba(255, 255, 255, 0.72)
+          rgba(255, 255, 255, 0.78)
         );
         padding: 22px;
         display: flex;
@@ -537,16 +598,10 @@ FOOTER + bottom CTA kept (you said perfect)
         line-height: 1.45;
         font-weight: 650;
       }
-      
-      .section#mosaic{
-        padding-top: 64px; /* give header breathing room */
-      }
-      
-      .section#mosaic .mosaic-wrap{
-        margin-top: 22px; /* push mosaic down below the lead */
-      }
 
-      /* Footer contact */
+      /* ===========================
+         FOOTER
+      ============================ */
       footer {
         margin-top: 34px;
         padding: 26px 0 42px;
@@ -589,132 +644,32 @@ FOOTER + bottom CTA kept (you said perfect)
         padding: 9px 12px;
         border-radius: 999px;
         border: 1px solid rgba(18, 59, 59, 0.14);
-        background: rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.86);
         color: var(--teal-dark);
         font-weight: 950;
       }
-
       .contact-mini a:hover { border-color: rgba(18, 59, 59, 0.26); }
 
-      /* ===== FIX mosaic overlap with text ===== */
-
-      /* Reserve space so images never cover text */
-      .m-clean .m-inner{
-        padding-right: clamp(240px, 34vw, 380px);
-      }
-      
-      .m-time .m-inner{
-        padding-right: clamp(240px, 34vw, 380px);
-      }
-      
-      /* Reduce how aggressively images overlap */
-      .m-pic1{ right: -12px; }
-      .m-pic3{ right: -12px; }
-
-      /* 0) Ensure mosaic can host “bridge” photos */
-      .mosaic-wrap{ position: relative; }
-      
-      /* 1) Keep text/buttons always above photos */
-      .m-clean, .m-time, .m-quality { z-index: 3; }
-      .m-pic1, .m-pic2, .m-pic3, .m-pic4, .m-pic5 { z-index: 2; }
-      .m-block .m-inner{ position: relative; z-index: 4; }
-      
-      /* 2) Reserve space for the right-side photos, but scale it with width */
-      .m-clean .m-inner,
-      .m-time  .m-inner{
-        padding-right: clamp(220px, 28vw, 360px);
-      }
-      
-      /* 3) Make photo positions responsive (clamp instead of fixed px) */
-      .m-pic1{
-        right: clamp(-10px, -1vw, -4px);
-        top:   clamp(12px, 1.4vw, 22px);
-        width: clamp(240px, 34vw, 420px);
-        height: clamp(150px, 20vw, 190px);
-      }
-      
-      .m-pic3{
-        right:  clamp(-10px, -1vw, -4px);
-        bottom: clamp(10px, 1.4vw, 22px);
-        width:  clamp(240px, 34vw, 420px);
-        height: clamp(160px, 22vw, 200px);
-      }
-      
-      .m-pic2{
-        left:  clamp(0px, 4vw, 70px);
-        top:   clamp(160px, 16vw, 210px);
-        width: clamp(300px, 40vw, 520px);
-        height: clamp(160px, 18vw, 220px);
-      }
-      
-      /* 4) New: pic4 touches BOTH Timelapses + Quality Materials (bridge photo)
-            This is positioned relative to .mosaic-wrap so it can sit between columns. */
-      .m-pic4{
-        position: absolute;
-        /* place near the seam between left + right columns */
-        left:  clamp(48%, 54vw, 60%);
-        top:   clamp(360px, 42vw, 520px);
-        transform: translateX(-50%);
-        width:  clamp(220px, 26vw, 360px);
-        height: clamp(160px, 20vw, 240px);
-      }
-      
-      /* 5) New: pic5 on the outer edge of Quality Materials */
-      .m-pic5{
-        position: absolute;
-        right:  clamp(-18px, -1.5vw, -8px);
-        top:    clamp(210px, 24vw, 320px);
-        width:  clamp(180px, 22vw, 300px);
-        height: clamp(140px, 18vw, 220px);
-      }
-      
-      /* 6) Mobile: hide extra photos + remove reserved padding */
-      @media (max-width: 900px){
-        .m-pic4, .m-pic5{ display:none; }
-      }
-      
-      @media (max-width: 760px){
-        .m-clean .m-inner,
-        .m-time  .m-inner{ padding-right: 22px; }
-        .m-pic1, .m-pic3{ display:none; } /* keep your previous behavior */
-      }
-      
-      /* Mobile: remove reserved space when images are hidden */
-      @media (max-width: 760px){
-        .m-clean .m-inner,
-        .m-time .m-inner{
-          padding-right: 22px;
-        }
-      }
-
-
-      /* Responsive */
+      /* ===========================
+         RESPONSIVE
+      ============================ */
       @media (max-width: 980px) {
         .hero-frame { grid-template-columns: 1fr; }
         .hero-image { min-height: 320px; }
-
         .make-grid { grid-template-columns: 1fr 1fr; }
-
-        .mosaic-wrap { grid-template-columns: 1fr; }
-        .mosaic-left, .mosaic-right { min-height: 560px; }
-        .m-quality { right: 0; top: 120px; width: 92%; }
+        .mosaic-grid { grid-template-columns: 1fr; }
+        .tile.quality { min-height: 260px; }
+        .edge-photo { display: none; } /* reduce clutter */
       }
 
-      /* Hide some mosaic pictures until larger screens */
       @media (max-width: 760px) {
         .nav-links { display: none; }
         .make-grid { grid-template-columns: 1fr; }
-
-        .mosaic-left, .mosaic-right { min-height: 520px; }
-
-        /* hide pics on small screens */
-        .m-pic1, .m-pic3 { display: none; }
-
-        /* re-balance remaining blocks */
-        .m-clean { width: 100%; }
-        .m-pic2 { left: 0; width: 62%; }
-        .m-quality { top: 200px; width: 100%; }
-        .m-time { width: 100%; }
+        .tile.has-right-photo .tile-inner { padding-right: 22px; }
+        .clean-photo, .time-photo { display: none; }
+        .stage-photo { display: none; }
+        .bridge-photo { display: none; }
+        .mosaic-stage { padding: 14px; }
       }
 
       @media (max-width: 520px) {
@@ -785,7 +740,7 @@ FOOTER + bottom CTA kept (you said perfect)
             </div>
           </div>
 
-          <!-- WHAT WE MAKE (ON-BRAND, NEVER OVERLAPS) -->
+          <!-- WHAT WE MAKE -->
           <section class="make-band" aria-label="What we make">
             <div class="make-band-inner">
               <div class="make-head">
@@ -820,7 +775,7 @@ FOOTER + bottom CTA kept (you said perfect)
         </div>
       </section>
 
-      <!-- MOSAIC (replaces Shop-by-category + Made-with-joy sections) -->
+      <!-- MOSAIC -->
       <section class="section" id="mosaic">
         <div class="container">
           <h2>Made to feel special</h2>
@@ -828,79 +783,81 @@ FOOTER + bottom CTA kept (you said perfect)
             A few ways Beaming With Joy adds personality — mix-and-match categories, materials, and the vibe you want.
           </p>
 
-          <div class="mosaic-wrap" aria-label="Mosaic highlights">
-          <div class="mosaic-grid">
-            <div class="m-block m-yellow m-clean">
-              <div class="m-inner">
-                <div class="m-title">Clean designs</div>
-                <div class="m-sub">
-                  Modern, photogenic layouts that don’t feel generic — built to match your theme.
-                </div>
-                <div class="m-chiprow">
-                  <a class="m-chip" href="shop.html#events">Event Glow-Ups</a>
-                  <a class="m-chip" href="shop.html#biz">Brand Boost</a>
-                  <a class="m-chip" href="#custom">Custom</a>
-                </div>
-              </div>
-            </div>
-        
-            <div class="m-block m-cream m-img m-pic1">
-              <img src="assets/basic_invite.jpg" alt="Sample product photo 1" />
-            </div>
-        
-            <div class="m-block m-blue m-img m-pic2">
+          <div class="mosaic-stage" aria-label="Mosaic highlights">
+            <!-- stage-anchored floating photos -->
+            <div class="photo stage-photo">
               <img src="assets/basic_glassware.jpg" alt="Sample product photo 2" />
             </div>
-        
-            <div class="m-block m-coral m-time">
-              <div class="m-inner">
-                <div class="m-title">Timelapses</div>
-                <div class="m-sub">
-                  Behind-the-scenes making + satisfying finishes (perfect for Instagram).
-                </div>
-                <div class="m-chiprow">
-                  <a class="m-chip" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener">
-                    Watch on IG
-                  </a>
-                  <a class="m-chip" href="shop.html">Shop</a>
-                </div>
-              </div>
-            </div>
-        
-            <div class="m-block m-cream m-img m-pic3">
-              <img src="assets/basic_woodwork.jpg" alt="Sample product photo 3" />
-            </div>
-        
-            <div class="m-block m-teal m-quality">
-              <div class="m-inner">
-                <div class="m-title">Quality materials</div>
-                <div class="m-sub">
-                  Glass, wood, acrylic — chosen for crisp engraving and a clean, gift-worthy finish.
-                </div>
-                <div class="m-chiprow">
-                  <a class="m-chip" href="shop.html#glass">Glass & Shine</a>
-                  <a class="m-chip" href="shop.html#kids">Kid Joy</a>
-                  <a class="m-chip" href="shop.html">All products</a>
-                </div>
-              </div>
-            </div>
-        
-            <!-- pic4 bridges Quality + Timelapses -->
-            <div class="m-block m-cream m-img m-pic4">
+
+            <div class="photo bridge-photo">
               <img src="assets/basic_bc.jpg" alt="Sample product photo 4" />
             </div>
-        
-            <!-- pic5 hugs outer edge of Quality -->
-            <div class="m-block m-cream m-img m-pic5">
+
+            <div class="photo edge-photo">
               <img src="assets/basic_invite.jpg" alt="Sample product photo 5" />
+            </div>
+
+            <div class="mosaic-grid">
+              <!-- Clean designs -->
+              <div class="tile bg-yellow clean has-right-photo">
+                <div class="tile-inner">
+                  <div class="tile-title">Clean designs</div>
+                  <div class="tile-sub">
+                    Modern, photogenic layouts that don’t feel generic — built to match your theme.
+                  </div>
+                  <div class="chiprow">
+                    <a class="chip" href="shop.html#events">Event Glow-Ups</a>
+                    <a class="chip" href="shop.html#biz">Brand Boost</a>
+                    <a class="chip" href="#custom">Custom</a>
+                  </div>
+                </div>
+                <div class="photo clean-photo" aria-hidden="true">
+                  <img src="assets/basic_invite.jpg" alt="" />
+                </div>
+              </div>
+
+              <!-- Quality materials -->
+              <div class="tile bg-teal quality">
+                <div class="tile-inner">
+                  <div class="tile-title">Quality materials</div>
+                  <div class="tile-sub">
+                    Glass, wood, acrylic — chosen for crisp engraving and a clean, gift-worthy finish.
+                  </div>
+                  <div class="chiprow">
+                    <a class="chip" href="shop.html#glass">Glass & Shine</a>
+                    <a class="chip" href="shop.html#kids">Kid Joy</a>
+                    <a class="chip" href="shop.html">All products</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Timelapses -->
+              <div class="tile bg-coral timelapse has-right-photo">
+                <div class="tile-inner">
+                  <div class="tile-title">Timelapses</div>
+                  <div class="tile-sub">
+                    Behind-the-scenes making + satisfying finishes (perfect for Instagram).
+                  </div>
+                  <div class="chiprow">
+                    <a class="chip" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener">
+                      Watch on IG
+                    </a>
+                    <a class="chip" href="shop.html">Shop</a>
+                  </div>
+                </div>
+                <div class="photo time-photo" aria-hidden="true">
+                  <img src="assets/basic_woodwork.jpg" alt="" />
+                </div>
+              </div>
+
+              <!-- (Empty spacer on desktop so the grid feels like the sketch; collapses on mobile) -->
+              <div class="tile" style="opacity: 0; border: 0; box-shadow: none; background: transparent;"></div>
             </div>
           </div>
         </div>
-
-        </div>
       </section>
 
-      <!-- BOTTOM CTA (kept) -->
+      <!-- BOTTOM CTA -->
       <section class="section" id="custom" style="padding-top: 40px;">
         <div class="container">
           <div class="cta-band">
@@ -917,7 +874,7 @@ FOOTER + bottom CTA kept (you said perfect)
       </section>
     </main>
 
-    <!-- FOOTER (CONTACT) -->
+    <!-- FOOTER -->
     <footer id="contact">
       <div class="container">
         <div class="footer-row">
@@ -942,4 +899,3 @@ FOOTER + bottom CTA kept (you said perfect)
     </script>
   </body>
 </html>
-```
