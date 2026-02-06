@@ -610,6 +610,74 @@ FOOTER + bottom CTA kept (you said perfect)
       /* Reduce how aggressively images overlap */
       .m-pic1{ right: -12px; }
       .m-pic3{ right: -12px; }
+
+      /* 0) Ensure mosaic can host “bridge” photos */
+      .mosaic-wrap{ position: relative; }
+      
+      /* 1) Keep text/buttons always above photos */
+      .m-clean, .m-time, .m-quality { z-index: 3; }
+      .m-pic1, .m-pic2, .m-pic3, .m-pic4, .m-pic5 { z-index: 2; }
+      .m-block .m-inner{ position: relative; z-index: 4; }
+      
+      /* 2) Reserve space for the right-side photos, but scale it with width */
+      .m-clean .m-inner,
+      .m-time  .m-inner{
+        padding-right: clamp(220px, 28vw, 360px);
+      }
+      
+      /* 3) Make photo positions responsive (clamp instead of fixed px) */
+      .m-pic1{
+        right: clamp(-10px, -1vw, -4px);
+        top:   clamp(12px, 1.4vw, 22px);
+        width: clamp(240px, 34vw, 420px);
+        height: clamp(150px, 20vw, 190px);
+      }
+      
+      .m-pic3{
+        right:  clamp(-10px, -1vw, -4px);
+        bottom: clamp(10px, 1.4vw, 22px);
+        width:  clamp(240px, 34vw, 420px);
+        height: clamp(160px, 22vw, 200px);
+      }
+      
+      .m-pic2{
+        left:  clamp(0px, 4vw, 70px);
+        top:   clamp(160px, 16vw, 210px);
+        width: clamp(300px, 40vw, 520px);
+        height: clamp(160px, 18vw, 220px);
+      }
+      
+      /* 4) New: pic4 touches BOTH Timelapses + Quality Materials (bridge photo)
+            This is positioned relative to .mosaic-wrap so it can sit between columns. */
+      .m-pic4{
+        position: absolute;
+        /* place near the seam between left + right columns */
+        left:  clamp(48%, 54vw, 60%);
+        top:   clamp(360px, 42vw, 520px);
+        transform: translateX(-50%);
+        width:  clamp(220px, 26vw, 360px);
+        height: clamp(160px, 20vw, 240px);
+      }
+      
+      /* 5) New: pic5 on the outer edge of Quality Materials */
+      .m-pic5{
+        position: absolute;
+        right:  clamp(-18px, -1.5vw, -8px);
+        top:    clamp(210px, 24vw, 320px);
+        width:  clamp(180px, 22vw, 300px);
+        height: clamp(140px, 18vw, 220px);
+      }
+      
+      /* 6) Mobile: hide extra photos + remove reserved padding */
+      @media (max-width: 900px){
+        .m-pic4, .m-pic5{ display:none; }
+      }
+      
+      @media (max-width: 760px){
+        .m-clean .m-inner,
+        .m-time  .m-inner{ padding-right: 22px; }
+        .m-pic1, .m-pic3{ display:none; } /* keep your previous behavior */
+      }
       
       /* Mobile: remove reserved space when images are hidden */
       @media (max-width: 760px){
@@ -784,6 +852,10 @@ FOOTER + bottom CTA kept (you said perfect)
                 <img src="assets/basic_glassware.jpg" alt="Sample product photo 2" />
               </div>
 
+              <div class="m-block m-cream m-img m-pic4">
+                <img src="assets/basic_bc.jpg" alt="Sample product photo 4" />
+              </div>
+
               <div class="m-block m-coral m-time">
                 <div class="m-inner">
                   <div class="m-title">Timelapses</div>
@@ -809,6 +881,11 @@ FOOTER + bottom CTA kept (you said perfect)
                   <div class="m-sub">
                     Glass, wood, acrylic — chosen for crisp engraving and a clean, gift-worthy finish.
                   </div>
+
+                  <div class="m-block m-cream m-img m-pic5">
+                    <img src="assets/basic_invite.jpg" alt="Sample product photo 5" />
+                  </div>
+                  
                   <div class="m-chiprow">
                     <a class="m-chip" href="shop.html#glass">Glass & Shine</a>
                     <a class="m-chip" href="shop.html#kids">Kid Joy</a>
