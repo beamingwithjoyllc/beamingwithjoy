@@ -386,6 +386,8 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
         background: rgba(255,255,255,0.28);
         border: 1px solid rgba(18,59,59,0.10);
         box-shadow: var(--shadow2);
+        grid-auto-rows: 18px;      /* IMPORTANT: gives every row a unit height */
+        align-items: stretch;      /* makes spans actually create height */
       }
 
       .m-card{
@@ -412,6 +414,16 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
         line-height: 1.45;
         font-size: 14px;
         max-width: 52ch;
+      }
+      .m-card.img{
+        min-height: 140px;         /* safety so images never collapse */
+      }
+      .m-card.img img{
+        width: 100%;
+        height: auto;
+        min-height: 100%;
+        object-fit: cover;
+        display: block;
       }
 
       .chips{ display:flex; gap:10px; flex-wrap:wrap; }
