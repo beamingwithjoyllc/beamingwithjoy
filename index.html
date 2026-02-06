@@ -25,11 +25,14 @@ Next pages after this:
         --panel: rgba(255, 255, 255, 0.06);
         --panel2: rgba(255, 255, 255, 0.09);
         --text: #123b3b;
-        --muted: rgba(255, 255, 255, 0.72);
+        --muted: #5f7f7f;
         --line: rgba(18, 59, 59, 0.14);
         --yellow: #f3d37a;
         --orange: #f2a25c;
         --blue: #79b7ff;
+        --coral-dark: #c65b4f;
+        --yellow-dark: #c9a23a;
+        --teal-dark: #0f3f3f;
         --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
         --radius: 18px;
         --max: 1120px;
@@ -145,10 +148,15 @@ Next pages after this:
       .hero-bg {
         position: absolute;
         inset: 0;
+        background-color: #bfe6e4;
         background:
           radial-gradient(900px 520px at 18% 18%, rgba(121, 183, 255, 0.16), transparent 55%),
           radial-gradient(880px 520px at 72% 12%, rgba(242, 162, 92, 0.14), transparent 55%),
-          linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(11, 15, 20, 0.92)),
+          linear-gradient(180deg, 
+                          rgba(255, 255, 255, 0.0) 0%, 
+                          rgba(190, 230, 228, 0.55) 55%, 
+                          rgba(155, 214, 210, 0.85) 100%),
+
           url("assets/basic_hero.jpg");
         background-size: cover;
         background-position: center;
@@ -267,15 +275,15 @@ Next pages after this:
         font-weight: 700;
         font-size: 14px;
         letter-spacing: 0.2px;
+        color: var(--coral-dark);
       }
 
       .badge {
         font-size: 12px;
-        color: rgba(255, 255, 255, 0.78);
+        color: var(--teal-dark);
         padding: 7px 10px;
         border-radius: 999px;
-        background: rgba(121, 183, 255, 0.12);
-        border: 1px solid rgba(121, 183, 255, 0.22);
+        background: rgba(243, 211, 122, 0.35);
       }
 
       .hero-card-body {
@@ -305,6 +313,10 @@ Next pages after this:
         color: var(--muted);
         font-size: 13.5px;
         line-height: 1.45;
+      }
+
+      .row p strong {
+        color: var(--yellow-dark);
       }
 
       /* Sections */
@@ -495,8 +507,8 @@ Next pages after this:
               <h1>Custom-made pieces that feel like <span style="color: var(--yellow)">you</span>.</h1>
 
               <p class="subhead">
-                From wedding signage to one-of-a-kind gifts, we design and engrave with crisp detail,
-                fast turnaround, and a whole lot of joy.
+                From classics with a cool twist to one-of-a-kind gifts, we design and engrave with crisp detail,
+                fast turnaround, and a whole lot of joy!
               </p>
 
               <div class="cta-row">
@@ -514,19 +526,19 @@ Next pages after this:
               <div class="hero-card-body">
                 <div class="row">
                   <span class="spark" aria-hidden="true"></span>
-                  <p><strong style="color: var(--text)">Event signage</strong> — weddings, showers, parties, milestones.</p>
+                  <p><strong style="color: var(--text)">Event Signage</strong> — weddings, showers, parties, milestones.</p>
                 </div>
                 <div class="row">
                   <span class="spark" aria-hidden="true" style="background: var(--orange)"></span>
-                  <p><strong style="color: var(--text)">Gifts</strong> — engraved keepsakes that don’t feel generic.</p>
+                  <p><strong style="color: var(--text)">Gifts</strong> — thoughtful peronalizations and engraved keepsakes</p>
                 </div>
                 <div class="row">
                   <span class="spark" aria-hidden="true" style="background: var(--yellow)"></span>
-                  <p><strong style="color: var(--text)">Glass + wood</strong> — clean finishes, crisp engraving.</p>
+                  <p><strong style="color: var(--text)">Glass + Wood</strong> — clean finishes, crisp engraving </p>
                 </div>
                 <div class="row">
                   <span class="spark" aria-hidden="true"></span>
-                  <p><strong style="color: var(--text)">Business</strong> — cards, tags, branding pieces, small runs.</p>
+                  <p><strong style="color: var(--text)">Business</strong> — cards, tags, branding pieces, small runs </p>
                 </div>
                 <a class="btn" href="shop.html#categories" style="width: 100%; margin-top: 4px">Explore categories</a>
               </div>
@@ -634,7 +646,9 @@ Next pages after this:
               </span>
             </div>
             <div style="display: flex; gap: 10px; flex-wrap: wrap">
-              <a class="btn" href="#" onclick="alert('Add your Instagram link in index.html'); return false;">Instagram</a>
+              <a class="btn btn-instagram" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener"> 
+                Instagram </a
+                            >
               <a class="btn btn-primary" href="#" onclick="alert('Add your email link in index.html'); return false;"
                 >Email us</a
               >
