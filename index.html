@@ -28,6 +28,17 @@
         --yellow-dark: #c9a23a;
         --teal-dark: #0f3f3f;
 
+        /* Brand palette (from logo) */
+        --brand-teal-light: #cff1ee;   /* Light turquoise */
+        --brand-teal: #bfe8ee;         /* Light azure */
+        --brand-teal-dark: #4faac6;    /* Azure */
+        
+        --brand-yellow-soft: #fff6ba;  /* Light yellow */
+        --brand-yellow: #ffea5e;       /* Yellow */
+        
+        --brand-coral-light: #ffdacc;  /* Light orange */
+        --brand-coral: #f3a080;        /* Pastel orange */
+
         --shadow: 0 18px 50px rgba(18, 59, 59, 0.1);
         --shadow2: 0 26px 70px rgba(18, 59, 59, 0.12);
 
@@ -221,10 +232,50 @@
         transform: translateY(-1px);
       }
 
+      /* Primary = Yellow (Brand) */
       .btn-primary {
-        border-color: rgba(243, 211, 122, 0.45);
-        background: linear-gradient(135deg, rgba(243, 211, 122, 0.78), rgba(121, 183, 255, 0.55));
+        background: linear-gradient(
+          135deg,
+          var(--brand-yellow-soft),
+          var(--brand-yellow)
+        );
+        border-color: var(--brand-yellow);
+        color: #0f3f3f;
+        box-shadow: 0 8px 20px rgba(255, 234, 94, 0.45);
       }
+
+      /* Coral Accent */
+      .btn-coral {
+        background: linear-gradient(
+          135deg,
+          var(--brand-coral-light),
+          var(--brand-coral)
+        );
+        border-color: var(--brand-coral);
+        color: #0f3f3f;
+        box-shadow: 0 8px 20px rgba(243, 160, 128, 0.35);
+      }
+      
+      /* Blue / Teal Secondary */
+      .btn-blue {
+        background: linear-gradient(
+          135deg,
+          var(--brand-teal-light),
+          var(--brand-teal)
+        );
+        border-color: var(--brand-teal);
+        color: #0f3f3f;
+        box-shadow: 0 8px 20px rgba(79, 170, 198, 0.35);
+      }
+
+      .btn-primary:hover,
+      .btn-coral:hover,
+      .btn-blue:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.05);
+        box-shadow: 0 12px 28px rgba(18, 59, 59, 0.25);
+      }
+
 
       .mini {
         color: var(--muted);
@@ -533,6 +584,32 @@
         display: grid;
         gap: 8px;
       }
+
+      /* Brand-colored cards */
+      .special-card.yellow {
+        background: linear-gradient(
+          135deg,
+          var(--brand-yellow-soft),
+          var(--brand-yellow)
+        );
+      }
+      
+      .special-card.coral {
+        background: linear-gradient(
+          135deg,
+          var(--brand-coral-light),
+          var(--brand-coral)
+        );
+      }
+      
+      .special-card.blue {
+        background: linear-gradient(
+          135deg,
+          var(--brand-teal-light),
+          var(--brand-teal)
+        );
+      }
+
 
       .special-head h3 {
         margin: 0;
@@ -877,7 +954,7 @@
           </p>
 
           <div class="special-grid" aria-label="Highlights cards">
-            <div class="special-card">
+            <div class="special-card yellow">
               <div class="special-head">
                 <h3>Clean designs</h3>
                 <p>Modern, photogenic layouts that don’t feel generic — built to match your theme.</p>
@@ -892,7 +969,7 @@
               </div>
             </div>
 
-            <div class="special-card">
+            <div class="special-card coral">
               <div class="special-head">
                 <h3>Quality materials</h3>
                 <p>Glass, wood, acrylic — chosen for crisp engraving and a clean, gift-worthy finish.</p>
@@ -907,7 +984,7 @@
               </div>
             </div>
 
-            <div class="special-card">
+            <div class="special-card blue">
               <div class="special-head">
                 <h3>Behind the scenes</h3>
                 <p>Timelapses, process clips, and satisfying finishes (perfect for Instagram).</p>
