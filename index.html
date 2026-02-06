@@ -1,11 +1,14 @@
+```html
 <!--
-Beaming With Joy — Homepage (updated layout)
-- Top hero like reference: left text panel + right MAIN_HOME_IMAGE.png
-- Keep ombre background
-- “What we make” becomes a floating overlay card with text over an image
-- “Made with Joy” becomes 3 overlapping cards
-- “Need something custom?” stays at bottom
-- Contact moves into footer
+Beaming With Joy — Homepage (fixes + new “mosaic” section)
+FIXES:
+- “What we make” no longer covers content (in normal flow, not absolute)
+- “What we make” uses light, on-brand ombre (no dark off-theme)
+- Hero spacing cleaned up; no overlap with right image / headings
+CHANGE:
+- Replace “Shop by category” + “Made with joy” with a responsive mosaic block section
+  (some blocks are images; some are colorful text blocks; some hide on small screens)
+FOOTER + bottom CTA kept (you said perfect)
 -->
 
 <!DOCTYPE html>
@@ -37,8 +40,8 @@ Beaming With Joy — Homepage (updated layout)
         --yellow-dark: #c9a23a;
         --teal-dark: #0f3f3f;
 
-        --shadow: 0 18px 50px rgba(18, 59, 59, 0.10);
-        --shadow2: 0 26px 70px rgba(18, 59, 59, 0.14);
+        --shadow: 0 18px 50px rgba(18, 59, 59, 0.1);
+        --shadow2: 0 26px 70px rgba(18, 59, 59, 0.12);
 
         --radius: 18px;
         --max: 1120px;
@@ -119,7 +122,7 @@ Beaming With Joy — Homepage (updated layout)
         background: rgba(255, 255, 255, 0.65);
         color: var(--text);
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 800;
       }
 
       .pill:hover { border-color: rgba(18, 59, 59, 0.25); }
@@ -127,8 +130,8 @@ Beaming With Joy — Homepage (updated layout)
       /* Hero */
       .hero {
         position: relative;
-        padding-top: 88px; /* nav offset */
-        padding-bottom: 110px; /* space for floating card */
+        padding-top: 92px; /* nav offset */
+        padding-bottom: 26px;
       }
 
       .hero-bg {
@@ -137,19 +140,17 @@ Beaming With Joy — Homepage (updated layout)
         background:
           radial-gradient(900px 520px at 16% 20%, rgba(121, 183, 255, 0.20), transparent 55%),
           radial-gradient(860px 520px at 74% 16%, rgba(242, 162, 92, 0.18), transparent 55%),
-          linear-gradient(180deg, rgba(255,255,255,0.00), rgba(190,230,228,0.40) 55%, rgba(155,214,210,0.78));
+          linear-gradient(180deg, rgba(255,255,255,0.00), rgba(190,230,228,0.34) 55%, rgba(155,214,210,0.62));
         pointer-events: none;
       }
 
-      .hero-shell {
-        position: relative;
-      }
+      .hero-shell { position: relative; }
 
       .hero-frame {
         display: grid;
         grid-template-columns: 0.95fr 1.05fr;
         gap: 22px;
-        align-items: center;
+        align-items: stretch;
       }
 
       .hero-panel {
@@ -158,6 +159,9 @@ Beaming With Joy — Homepage (updated layout)
         background: rgba(255, 255, 255, 0.72);
         box-shadow: var(--shadow2);
         padding: 26px 24px;
+        display: grid;
+        align-content: start;
+        gap: 10px;
       }
 
       .kicker {
@@ -166,11 +170,12 @@ Beaming With Joy — Homepage (updated layout)
         gap: 10px;
         padding: 8px 12px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.82);
         border: 1px solid rgba(18, 59, 59, 0.12);
         color: var(--muted);
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 800;
+        width: fit-content;
       }
 
       .dot {
@@ -182,19 +187,20 @@ Beaming With Joy — Homepage (updated layout)
       }
 
       h1 {
-        margin: 14px 0 10px;
+        margin: 6px 0 0;
         font-size: clamp(34px, 4.2vw, 56px);
-        line-height: 1.02;
+        line-height: 1.03;
         letter-spacing: -0.7px;
         color: #0f2f2f;
       }
 
       .subhead {
-        margin: 0 0 18px;
+        margin: 0;
         color: var(--muted);
         font-size: 16px;
         line-height: 1.6;
         max-width: 56ch;
+        font-weight: 650;
       }
 
       .cta-row {
@@ -202,6 +208,7 @@ Beaming With Joy — Homepage (updated layout)
         flex-wrap: wrap;
         gap: 12px;
         align-items: center;
+        margin-top: 8px;
       }
 
       .btn {
@@ -214,10 +221,11 @@ Beaming With Joy — Homepage (updated layout)
         border: 1px solid var(--line);
         background: rgba(255, 255, 255, 0.86);
         color: var(--text);
-        font-weight: 800;
+        font-weight: 900;
         font-size: 14px;
         cursor: pointer;
         transition: transform 160ms ease, border-color 160ms ease;
+        white-space: nowrap;
       }
 
       .btn:hover {
@@ -227,13 +235,13 @@ Beaming With Joy — Homepage (updated layout)
 
       .btn-primary {
         border-color: rgba(243, 211, 122, 0.45);
-        background: linear-gradient(135deg, rgba(243, 211, 122, 0.75), rgba(121, 183, 255, 0.55));
+        background: linear-gradient(135deg, rgba(243, 211, 122, 0.78), rgba(121, 183, 255, 0.55));
       }
 
       .mini {
         color: var(--muted);
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 750;
       }
 
       .hero-image {
@@ -251,9 +259,9 @@ Beaming With Joy — Homepage (updated layout)
         position: absolute;
         inset: 0;
         background:
-          linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.02)),
-          radial-gradient(800px 380px at 70% 30%, rgba(121,183,255,0.18), transparent 55%),
-          radial-gradient(760px 380px at 30% 70%, rgba(243,211,122,0.18), transparent 55%);
+          linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02)),
+          radial-gradient(800px 380px at 70% 30%, rgba(121,183,255,0.16), transparent 55%),
+          radial-gradient(760px 380px at 30% 70%, rgba(243,211,122,0.14), transparent 55%);
         pointer-events: none;
       }
 
@@ -262,65 +270,60 @@ Beaming With Joy — Homepage (updated layout)
         height: 100%;
         object-fit: cover;
         display: block;
-        transform: scale(1.02);
+        transform: scale(1.01);
       }
 
-      /* Floating “What we make” (text over image) */
-      .floating-make {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: -56px;
-        width: min(var(--max), calc(100% - 40px));
-        border-radius: calc(var(--radius) + 8px);
+      .featured-label {
+        margin: 12px 0 0;
+        color: var(--teal-dark);
+        font-weight: 900;
+        letter-spacing: 0.1px;
+      }
+
+      /* “What we make” band (NOT absolute; on-brand; never covers content) */
+      .make-band {
+        margin-top: 18px;
+        border-radius: calc(var(--radius) + 10px);
         border: 1px solid rgba(18, 59, 59, 0.14);
         overflow: hidden;
         box-shadow: var(--shadow2);
-        background: #fff;
-      }
-
-      .floating-make-bg {
-        position: absolute;
-        inset: 0;
         background:
-          linear-gradient(90deg, rgba(10, 45, 45, 0.88) 0%, rgba(10, 45, 45, 0.38) 58%, rgba(10, 45, 45, 0.12) 100%),
-          url("assets/basic_glassware.jpg");
-        background-size: cover;
-        background-position: center;
+          radial-gradient(900px 420px at 10% 30%, rgba(121,183,255,0.18), transparent 60%),
+          radial-gradient(900px 420px at 90% 60%, rgba(243,211,122,0.20), transparent 60%),
+          linear-gradient(135deg, rgba(255,255,255,0.80), rgba(255,255,255,0.56));
       }
 
-      .floating-make-content {
-        position: relative;
+      .make-band-inner {
         padding: 22px 22px 20px;
         display: grid;
         gap: 14px;
       }
 
-      .floating-head {
+      .make-head {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
       }
 
-      .floating-title {
-        font-weight: 900;
+      .make-title {
+        font-weight: 950;
         letter-spacing: 0.2px;
-        color: rgba(255,255,255,0.95);
-        font-size: 15px;
+        color: var(--teal-dark);
+        font-size: 16px;
       }
 
       .badge {
         font-size: 12px;
-        font-weight: 900;
+        font-weight: 950;
         color: #0f2f2f;
         padding: 7px 10px;
         border-radius: 999px;
         background: rgba(243, 211, 122, 0.92);
-        border: 1px solid rgba(255, 255, 255, 0.22);
+        border: 1px solid rgba(18, 59, 59, 0.12);
       }
 
-      .make-list {
+      .make-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 12px;
@@ -328,39 +331,42 @@ Beaming With Joy — Homepage (updated layout)
 
       .make-item {
         border-radius: 16px;
-        border: 1px solid rgba(255,255,255,0.18);
-        background: rgba(255,255,255,0.10);
+        border: 1px solid rgba(18,59,59,0.12);
+        background: rgba(255,255,255,0.72);
         padding: 12px 12px;
-        color: rgba(255,255,255,0.90);
-        min-height: 86px;
+        color: var(--teal-dark);
+        min-height: 92px;
+        box-shadow: 0 10px 28px rgba(18,59,59,0.06);
       }
 
       .make-item strong {
         display: block;
         margin-bottom: 4px;
-        color: rgba(255,255,255,0.98);
-        font-weight: 900;
+        color: var(--coral-dark);
+        font-weight: 950;
       }
 
       .make-item span {
-        color: rgba(255,255,255,0.78);
+        color: var(--teal-dark);
         font-size: 13px;
         line-height: 1.35;
+        font-weight: 650;
       }
 
-      .floating-actions {
+      .make-actions {
         display: flex;
         justify-content: flex-end;
       }
 
       /* Sections */
-      .section { padding: 86px 0 52px; }
+      .section { padding: 40px 0 54px; }
       .section h2 {
         margin: 0 0 10px;
         font-size: 24px;
         letter-spacing: -0.3px;
         color: #0f2f2f;
       }
+
       .lead {
         margin: 0 0 18px;
         color: var(--muted);
@@ -369,100 +375,135 @@ Beaming With Joy — Homepage (updated layout)
         font-weight: 650;
       }
 
-      /* Categories */
-      .grid { display: grid; gap: 14px; }
-      .grid-4 { grid-template-columns: repeat(4, 1fr); }
-
-      .tile {
-        border-radius: var(--radius);
-        border: 1px solid rgba(18, 59, 59, 0.14);
-        background: rgba(255, 255, 255, 0.84);
-        overflow: hidden;
-        min-height: 170px;
-        display: grid;
-        align-content: end;
+      /* Mosaic (replaces “Shop by category” + “Made with Joy”) */
+      .mosaic-wrap {
         position: relative;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 18px;
+        align-items: start;
+      }
+
+      .mosaic-left,
+      .mosaic-right {
+        position: relative;
+        min-height: 560px;
+      }
+
+      .m-block {
+        position: absolute;
+        border-radius: 48px;
+        border: 1px solid rgba(18,59,59,0.12);
         box-shadow: var(--shadow);
-        transition: transform 180ms ease, border-color 180ms ease;
+        overflow: hidden;
+        background: rgba(255,255,255,0.78);
       }
 
-      .tile:hover {
-        border-color: rgba(18, 59, 59, 0.26);
-        transform: translateY(-2px);
+      .m-block .m-inner {
+        padding: 22px;
+        display: grid;
+        gap: 10px;
       }
 
-      .tile::before {
+      .m-title {
+        font-weight: 1000;
+        letter-spacing: 0.2px;
+        color: var(--teal-dark);
+        font-size: 22px;
+      }
+
+      .m-sub {
+        color: var(--teal-dark);
+        font-weight: 700;
+        line-height: 1.45;
+        font-size: 14px;
+        max-width: 52ch;
+      }
+
+      .m-chiprow { display: flex; gap: 10px; flex-wrap: wrap; }
+
+      .m-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(18,59,59,0.12);
+        background: rgba(255,255,255,0.70);
+        color: var(--teal-dark);
+        font-weight: 900;
+        font-size: 13px;
+        width: fit-content;
+      }
+
+      .m-chip:hover { border-color: rgba(18,59,59,0.24); }
+
+      /* Mosaic block styles */
+      .m-yellow { background: rgba(243,211,122,0.72); }
+      .m-blue { background: rgba(121,183,255,0.34); }
+      .m-teal { background: rgba(155,214,210,0.55); }
+      .m-coral { background: rgba(242,162,92,0.55); }
+      .m-cream { background: rgba(255,248,238,0.90); }
+
+      .m-img::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.88));
-        z-index: 1;
+        background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.78));
+        pointer-events: none;
       }
 
-      .tile-img {
-        position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-position: center;
-        filter: saturate(1.05) contrast(1.02);
+      .m-img > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
       }
 
-      .tile-content {
-        position: relative;
-        z-index: 2;
-        padding: 16px;
-        display: grid;
-        gap: 6px;
+      /* Left stack (like your sketch) */
+      .m-clean {
+        left: 0;
+        top: 0;
+        width: 92%;
+        height: 210px;
       }
 
-      .tile-title {
-        font-weight: 950;
-        letter-spacing: 0.2px;
-        color: var(--coral-dark);
+      .m-pic1 {
+        right: 0;
+        top: 18px;
+        width: 42%;
+        height: 170px;
       }
 
-      .tile-desc {
-        color: var(--teal-dark);
-        font-size: 13px;
-        line-height: 1.45;
-        font-weight: 650;
+      .m-pic2 {
+        left: 8%;
+        top: 170px;
+        width: 46%;
+        height: 190px;
       }
 
-      /* Made with Joy (3 overlapping cards) */
-      .joy-wrap {
-        position: relative;
-        margin-top: 18px;
-        min-height: 210px;
+      /* Right big “quality materials” */
+      .m-quality {
+        right: 0;
+        top: 140px;
+        width: 86%;
+        height: 260px;
       }
 
-      .joy-card {
-        position: absolute;
-        width: min(520px, 92%);
-        border-radius: calc(var(--radius) + 10px);
-        border: 1px solid rgba(18, 59, 59, 0.14);
-        background: rgba(255, 255, 255, 0.86);
-        box-shadow: var(--shadow2);
-        padding: 18px 18px 16px;
+      /* Bottom “timelapses” */
+      .m-time {
+        left: 0;
+        bottom: 0;
+        width: 88%;
+        height: 220px;
       }
 
-      .joy-card h3 {
-        margin: 0 0 6px;
-        font-size: 18px;
-        letter-spacing: -0.2px;
-        color: var(--coral-dark);
+      .m-pic3 {
+        right: 0;
+        bottom: 16px;
+        width: 46%;
+        height: 190px;
       }
-
-      .joy-card p {
-        margin: 0;
-        color: var(--teal-dark);
-        line-height: 1.55;
-        font-weight: 650;
-        font-size: 14px;
-      }
-
-      .joy-1 { left: 0; top: 0; transform: rotate(-1.2deg); }
-      .joy-2 { left: 180px; top: 36px; transform: rotate(1.1deg); }
-      .joy-3 { left: 80px; top: 102px; transform: rotate(-0.4deg); }
 
       /* Bottom CTA */
       .cta-band {
@@ -487,7 +528,7 @@ Beaming With Joy — Homepage (updated layout)
         font-size: 18px;
         margin-bottom: 4px;
         color: var(--coral-dark);
-        font-weight: 950;
+        font-weight: 1000;
       }
 
       .cta-band span {
@@ -523,7 +564,7 @@ Beaming With Joy — Homepage (updated layout)
         align-items: center;
       }
 
-      .footer-links a { font-weight: 800; color: var(--teal-dark); }
+      .footer-links a { font-weight: 900; color: var(--teal-dark); }
       .footer-links a:hover { color: var(--coral-dark); }
 
       .contact-mini {
@@ -542,7 +583,7 @@ Beaming With Joy — Homepage (updated layout)
         border: 1px solid rgba(18, 59, 59, 0.14);
         background: rgba(255, 255, 255, 0.78);
         color: var(--teal-dark);
-        font-weight: 900;
+        font-weight: 950;
       }
 
       .contact-mini a:hover { border-color: rgba(18, 59, 59, 0.26); }
@@ -551,17 +592,32 @@ Beaming With Joy — Homepage (updated layout)
       @media (max-width: 980px) {
         .hero-frame { grid-template-columns: 1fr; }
         .hero-image { min-height: 320px; }
-        .make-list { grid-template-columns: 1fr 1fr; }
-        .floating-make { bottom: -72px; }
 
-        .joy-wrap { min-height: 320px; }
-        .joy-card { position: relative; width: 100%; left: 0 !important; top: 0 !important; transform: none !important; margin-top: 12px; }
+        .make-grid { grid-template-columns: 1fr 1fr; }
+
+        .mosaic-wrap { grid-template-columns: 1fr; }
+        .mosaic-left, .mosaic-right { min-height: 560px; }
+        .m-quality { right: 0; top: 120px; width: 92%; }
+      }
+
+      /* Hide some mosaic pictures until larger screens */
+      @media (max-width: 760px) {
+        .nav-links { display: none; }
+        .make-grid { grid-template-columns: 1fr; }
+
+        .mosaic-left, .mosaic-right { min-height: 520px; }
+
+        /* hide pics on small screens */
+        .m-pic1, .m-pic3 { display: none; }
+
+        /* re-balance remaining blocks */
+        .m-clean { width: 100%; }
+        .m-pic2 { left: 0; width: 62%; }
+        .m-quality { top: 200px; width: 100%; }
+        .m-time { width: 100%; }
       }
 
       @media (max-width: 520px) {
-        .nav-links { display: none; }
-        .grid-4 { grid-template-columns: 1fr; }
-        .make-list { grid-template-columns: 1fr; }
         .cta-band { flex-direction: column; align-items: flex-start; }
       }
     </style>
@@ -578,7 +634,7 @@ Beaming With Joy — Homepage (updated layout)
 
           <nav class="nav-links" aria-label="Primary">
             <a href="index.html">Home</a>
-            <a href="#categories">Categories</a>
+            <a href="#mosaic">Highlights</a>
             <a href="shop.html">All Products</a>
             <a href="#custom">Custom</a>
           </nav>
@@ -621,21 +677,23 @@ Beaming With Joy — Homepage (updated layout)
               </div>
             </div>
 
-            <div class="hero-image" aria-label="Main hero image">
-              <img src="assets/MAIN_HOME_IMAGE.png" alt="Beaming With Joy featured products" />
+            <div>
+              <div class="hero-image" aria-label="Main hero image">
+                <img src="assets/MAIN_HOME_IMAGE.png" alt="Beaming With Joy featured products" />
+              </div>
+              <div class="featured-label">Beaming With Joy featured products</div>
             </div>
           </div>
 
-          <!-- FLOATING WHAT WE MAKE (TEXT OVER IMAGE) -->
-          <section class="floating-make" aria-label="What we make">
-            <div class="floating-make-bg" aria-hidden="true"></div>
-            <div class="floating-make-content">
-              <div class="floating-head">
-                <div class="floating-title">What we make</div>
+          <!-- WHAT WE MAKE (ON-BRAND, NEVER OVERLAPS) -->
+          <section class="make-band" aria-label="What we make">
+            <div class="make-band-inner">
+              <div class="make-head">
+                <div class="make-title">What we make</div>
                 <div class="badge">Made to order</div>
               </div>
 
-              <div class="make-list">
+              <div class="make-grid">
                 <div class="make-item">
                   <strong>Event Signage</strong>
                   <span>Weddings, showers, parties, milestones.</span>
@@ -654,7 +712,7 @@ Beaming With Joy — Homepage (updated layout)
                 </div>
               </div>
 
-              <div class="floating-actions">
+              <div class="make-actions">
                 <a class="btn" href="shop.html#categories">Explore categories</a>
               </div>
             </div>
@@ -662,76 +720,77 @@ Beaming With Joy — Homepage (updated layout)
         </div>
       </section>
 
-      <!-- CATEGORIES -->
-      <section class="section" id="categories">
+      <!-- MOSAIC (replaces Shop-by-category + Made-with-joy sections) -->
+      <section class="section" id="mosaic">
         <div class="container">
-          <h2>Shop by category</h2>
-          <p class="lead">Simple, scrollable, and product-first — designed to feel clean, modern, and joyful.</p>
-
-          <div class="grid grid-4">
-            <a class="tile" href="shop.html#events">
-              <div class="tile-img" style="background-image: url('assets/basic_invite.jpg')"></div>
-              <div class="tile-content">
-                <div class="tile-title">Event Glow-Ups</div>
-                <div class="tile-desc">Custom signs + decor for weddings, showers, parties.</div>
-              </div>
-            </a>
-
-            <a class="tile" href="shop.html#kids">
-              <div class="tile-img" style="background-image: url('assets/basic_woodwork.jpg')"></div>
-              <div class="tile-content">
-                <div class="tile-title">Kid Joy</div>
-                <div class="tile-desc">Playful toys + name plates + keepsakes.</div>
-              </div>
-            </a>
-
-            <a class="tile" href="shop.html#glass">
-              <div class="tile-img" style="background-image: url('assets/basic_glassware.jpg')"></div>
-              <div class="tile-content">
-                <div class="tile-title">Glass & Shine</div>
-                <div class="tile-desc">Engraved glassware + bar gifts + sets.</div>
-              </div>
-            </a>
-
-            <a class="tile" href="shop.html#biz">
-              <div class="tile-img" style="background-image: url('assets/basic_bc.jpg')"></div>
-              <div class="tile-content">
-                <div class="tile-title">Brand Boost</div>
-                <div class="tile-desc">Business cards, tags, plaques, small-run items.</div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- MADE WITH JOY (OVERLAP) -->
-      <section class="section" id="about">
-        <div class="container">
-          <h2>Made with joy (and precision)</h2>
+          <h2>Made to feel special</h2>
           <p class="lead">
-            Crisp laser engraving + thoughtful design so your gift, sign, or keepsake feels intentional — not mass-produced.
+            A few ways Beaming With Joy adds personality — mix-and-match categories, materials, and the vibe you want.
           </p>
 
-          <div class="joy-wrap" aria-label="Three overlapping highlights">
-            <div class="joy-card joy-1">
-              <h3>Clean design</h3>
-              <p>Simple, modern layouts that photograph beautifully and feel elevated.</p>
+          <div class="mosaic-wrap" aria-label="Mosaic highlights">
+            <div class="mosaic-left">
+              <div class="m-block m-yellow m-clean">
+                <div class="m-inner">
+                  <div class="m-title">Clean designs</div>
+                  <div class="m-sub">
+                    Modern, photogenic layouts that don’t feel generic — built to match your theme.
+                  </div>
+                  <div class="m-chiprow">
+                    <a class="m-chip" href="shop.html#events">Event Glow-Ups</a>
+                    <a class="m-chip" href="shop.html#biz">Brand Boost</a>
+                    <a class="m-chip" href="#custom">Custom</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="m-block m-cream m-img m-pic1">
+                <img src="assets/basic_invite.jpg" alt="Sample product photo 1" />
+              </div>
+
+              <div class="m-block m-blue m-img m-pic2">
+                <img src="assets/basic_glassware.jpg" alt="Sample product photo 2" />
+              </div>
+
+              <div class="m-block m-coral m-time">
+                <div class="m-inner">
+                  <div class="m-title">Timelapses</div>
+                  <div class="m-sub">
+                    Behind-the-scenes making + satisfying finishes (perfect for Instagram).
+                  </div>
+                  <div class="m-chiprow">
+                    <a class="m-chip" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener">Watch on IG</a>
+                    <a class="m-chip" href="shop.html">Shop</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="m-block m-cream m-img m-pic3">
+                <img src="assets/basic_woodwork.jpg" alt="Sample product photo 3" />
+              </div>
             </div>
 
-            <div class="joy-card joy-2">
-              <h3>Quality materials</h3>
-              <p>Glass, wood, acrylic, and more — chosen for the finish and durability.</p>
-            </div>
-
-            <div class="joy-card joy-3">
-              <h3>Fast + friendly</h3>
-              <p>Clear timelines, quick proofs, and easy communication from start to finish.</p>
+            <div class="mosaic-right">
+              <div class="m-block m-teal m-quality">
+                <div class="m-inner">
+                  <div class="m-title">Quality materials</div>
+                  <div class="m-sub">
+                    Glass, wood, acrylic — chosen for crisp engraving and a clean, gift-worthy finish.
+                  </div>
+                  <div class="m-chiprow">
+                    <a class="m-chip" href="shop.html#glass">Glass & Shine</a>
+                    <a class="m-chip" href="shop.html#kids">Kid Joy</a>
+                    <a class="m-chip" href="shop.html">All products</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 
-      <!-- BOTTOM CTA -->
+      <!-- BOTTOM CTA (kept) -->
       <section class="section" id="custom" style="padding-top: 40px;">
         <div class="container">
           <div class="cta-band">
@@ -757,7 +816,7 @@ Beaming With Joy — Homepage (updated layout)
           <div class="footer-links">
             <a href="shop.html">Shop</a>
             <a href="cart.html">Cart</a>
-            <a href="#categories">Categories</a>
+            <a href="#mosaic">Highlights</a>
           </div>
 
           <div class="contact-mini" aria-label="Contact links">
@@ -773,3 +832,4 @@ Beaming With Joy — Homepage (updated layout)
     </script>
   </body>
 </html>
+```
