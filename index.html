@@ -1,11 +1,3 @@
-<!--
-Beaming With Joy — Homepage (FULL COPY/PASTE)
-Key change: Mosaic rebuilt using GRID (no absolute-position children)
-- Prevents bleeding/overlap into headings/footer at any screen size
-- Overlap effect is achieved safely via small margins (not absolute positioning)
-- Includes pic4 (bridge between Timelapses + Quality) and pic5 (outer edge of Quality)
-- Hides some pics on mobile automatically
--->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -349,10 +341,7 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
         font-weight: 650;
       }
 
-      .make-actions {
-        display: flex;
-        justify-content: flex-end;
-      }
+      .make-actions { display: flex; justify-content: flex-end; }
 
       /* Sections */
       .section { padding: 40px 0 54px; }
@@ -371,61 +360,196 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
         font-weight: 650;
       }
 
-      /* ===== NEW MOSAIC (stable grid, no absolute children) ===== */
-      .mosaic{
-        margin-top: 22px;
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        gap: 18px;
-        position: relative;
-        isolation: isolate;
-        overflow: clip;
-        padding: 10px;
-        border-radius: 56px;
-        background: rgba(255,255,255,0.28);
-        border: 1px solid rgba(18,59,59,0.10);
+      /* =========================
+         FEATURED SLIDESHOW
+         ========================= */
+      .slider-wrap {
+        border-radius: calc(var(--radius) + 10px);
+        border: 1px solid rgba(18, 59, 59, 0.14);
+        background: rgba(255,255,255,0.64);
         box-shadow: var(--shadow2);
-        grid-auto-rows: 18px;      /* IMPORTANT: gives every row a unit height */
-        align-items: stretch;      /* makes spans actually create height */
-      }
-
-      .m-card{
-        border-radius: 48px;
-        border: 1px solid rgba(18,59,59,0.12);
-        box-shadow: var(--shadow);
-        background: rgba(255,255,255,0.78);
         overflow: hidden;
-        position: relative;
-        z-index: 1;
       }
 
-      .m-card.text{ padding: 22px; }
-      .m-card.text h3{
-        margin: 0 0 8px;
-        font-size: 22px;
+      .slider-topbar {
+        padding: 16px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 1px solid rgba(18,59,59,0.10);
+        background:
+          radial-gradient(900px 360px at 10% 40%, rgba(121,183,255,0.12), transparent 60%),
+          radial-gradient(900px 360px at 90% 60%, rgba(243,211,122,0.14), transparent 60%),
+          rgba(255,255,255,0.62);
+      }
+
+      .slider-title {
+        font-weight: 1000;
+        color: var(--teal-dark);
         letter-spacing: 0.2px;
-        color: var(--teal-dark);
       }
-      .m-card.text p{
-        margin: 0 0 12px;
-        color: var(--teal-dark);
-        font-weight: 700;
-        line-height: 1.45;
-        font-size: 14px;
-        max-width: 52ch;
+
+      .slider-sub {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 750;
+        margin-left: 10px;
       }
-      .m-card.img{
-        min-height: 140px;         /* safety so images never collapse */
+
+      .slider-controls {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
       }
-      .m-card.img img{
+
+      .icon-btn {
+        width: 40px; height: 40px;
+        border-radius: 14px;
+        border: 1px solid rgba(18,59,59,0.14);
+        background: rgba(255,255,255,0.78);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: transform 160ms ease, border-color 160ms ease;
+        user-select: none;
+      }
+      .icon-btn:hover { transform: translateY(-1px); border-color: rgba(18,59,59,0.26); }
+
+      .slider {
+        position: relative;
+        height: clamp(340px, 42vw, 520px);
+        background: rgba(255,255,255,0.35);
+      }
+
+      .slides {
+        height: 100%;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 100%;
+        transition: transform 420ms ease;
+        will-change: transform;
+      }
+
+      .slide {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .slide::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.00), rgba(255,255,255,0.55) 92%),
+          radial-gradient(900px 380px at 70% 30%, rgba(121,183,255,0.16), transparent 55%),
+          radial-gradient(900px 380px at 30% 70%, rgba(243,211,122,0.14), transparent 55%);
+        pointer-events:none;
+        z-index: 2;
+      }
+
+      .slide img,
+      .slide video {
         width: 100%;
-        height: auto;
-        min-height: 100%;
+        height: 100%;
         object-fit: cover;
         display: block;
       }
 
-      .chips{ display:flex; gap:10px; flex-wrap:wrap; }
+      .slide-caption {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        z-index: 3;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .cap-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(18,59,59,0.14);
+        background: rgba(255,255,255,0.82);
+        color: var(--teal-dark);
+        font-weight: 950;
+        font-size: 13px;
+        box-shadow: 0 10px 26px rgba(18,59,59,0.10);
+      }
+
+      .dots {
+        padding: 12px 14px 14px;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid rgba(18,59,59,0.10);
+        background: rgba(255,255,255,0.62);
+      }
+
+      .dotbtn {
+        width: 10px; height: 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(18,59,59,0.18);
+        background: rgba(255,255,255,0.85);
+        cursor: pointer;
+        transition: transform 160ms ease, background 160ms ease;
+      }
+      .dotbtn[aria-current="true"] {
+        background: rgba(243,211,122,0.95);
+        transform: scale(1.25);
+      }
+
+      /* =========================
+         "MADE TO FEEL SPECIAL" (no overlap)
+         ========================= */
+      .special-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      .special-card {
+        border-radius: calc(var(--radius) + 12px);
+        border: 1px solid rgba(18, 59, 59, 0.12);
+        background: rgba(255,255,255,0.74);
+        box-shadow: var(--shadow2);
+        overflow: hidden;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-height: 260px;
+      }
+
+      .special-head {
+        padding: 18px 18px 12px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .special-head h3 {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: 0.1px;
+        color: var(--teal-dark);
+      }
+
+      .special-head p {
+        margin: 0;
+        color: var(--muted);
+        font-weight: 700;
+        line-height: 1.5;
+        font-size: 14px;
+      }
+
+      .chips { display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
       .chip{
         display:inline-flex;
         align-items:center;
@@ -438,76 +562,25 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
         font-size: 13px;
       }
 
-      .m-card.img::before{
+      .special-media {
+        position: relative;
+        min-height: 180px;
+        border-top: 1px solid rgba(18,59,59,0.10);
+      }
+
+      .special-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .special-media::before{
         content:"";
         position:absolute;
         inset:0;
-        background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.80));
+        background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.62));
         pointer-events:none;
-        z-index: 2;
-      }
-      .m-card.img img{
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        display:block;
-      }
-
-      /* Mosaic colors */
-      .yellow{ background: rgba(243,211,122,0.78); }
-      .teal{ background: rgba(155,214,210,0.62); }
-      .coral{ background: rgba(242,162,92,0.60); }
-
-      /* Desktop placement */
-      .clean   { grid-column: 1 / span 8;  grid-row: 1 / span 6; z-index: 3; }
-      .quality { grid-column: 9 / span 4;  grid-row: 1 / span 6; z-index: 3; }
-      .time    { grid-column: 1 / span 8;  grid-row: 7 / span 6; z-index: 3; }
-
-      /* Images in flow; “overlap” only via safe margins */
-      .pic1 { grid-column: 7 / span 3; grid-row: 2 / span 4; border-radius: 40px; margin-left: -12px; }
-      .pic2 { grid-column: 2 / span 5; grid-row: 5 / span 5; border-radius: 44px; margin-top: -10px; }
-      .pic3 { grid-column: 7 / span 3; grid-row: 8 / span 4; border-radius: 40px; margin-left: -12px; }
-
-      /* pic4 bridges Quality + Timelapses; pic5 hugs outer edge of Quality */
-      .pic4 { grid-column: 7 / span 3; grid-row: 7 / span 4; border-radius: 44px; z-index: 2; }
-      .pic5 { grid-column: 11 / span 2; grid-row: 4 / span 4; border-radius: 44px; margin-right: -10px; }
-
-      /* Tablet */
-      @media (max-width: 980px){
-        .hero-frame { grid-template-columns: 1fr; }
-        .hero-image { min-height: 320px; }
-        .make-grid { grid-template-columns: 1fr 1fr; }
-
-        .mosaic{ grid-template-columns: repeat(8, 1fr); }
-
-        .clean   { grid-column: 1 / -1; grid-row: 1; }
-        .quality { grid-column: 1 / -1; grid-row: 2; }
-        .time    { grid-column: 1 / -1; grid-row: 4; }
-
-        .pic1 { grid-column: 6 / span 3; grid-row: 1; align-self: end; margin-left: 0; }
-        .pic2 { grid-column: 1 / span 6; grid-row: 3; margin-top: 0; }
-        .pic3 { grid-column: 6 / span 3; grid-row: 4; align-self: end; margin-left: 0; }
-
-        .pic4 { grid-column: 5 / span 3; grid-row: 3; }
-        .pic5 { grid-column: 6 / span 3; grid-row: 2; margin-right: 0; }
-      }
-
-      /* Mobile: stack + hide extras */
-      @media (max-width: 760px){
-        .nav-links { display: none; }
-        .make-grid { grid-template-columns: 1fr; }
-
-        .mosaic{ grid-template-columns: 1fr; padding: 14px; }
-
-        .clean, .quality, .time,
-        .pic1, .pic2, .pic3, .pic4, .pic5{
-          grid-column: 1;
-          grid-row: auto;
-          margin: 0;
-        }
-
-        .pic1, .pic3, .pic5{ display:none; }
-        .pic2, .pic4{ height: 200px; border-radius: 34px; }
       }
 
       /* Bottom CTA */
@@ -541,10 +614,6 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
         font-size: 14px;
         line-height: 1.45;
         font-weight: 650;
-      }
-
-      @media (max-width: 520px) {
-        .cta-band { flex-direction: column; align-items: flex-start; }
       }
 
       /* Footer contact */
@@ -596,6 +665,25 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
       }
 
       .contact-mini a:hover { border-color: rgba(18, 59, 59, 0.26); }
+
+      /* Responsive */
+      @media (max-width: 980px){
+        .hero-frame { grid-template-columns: 1fr; }
+        .hero-image { min-height: 320px; }
+        .make-grid { grid-template-columns: 1fr 1fr; }
+        .special-grid { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 760px){
+        .nav-links { display: none; }
+        .make-grid { grid-template-columns: 1fr; }
+        .slider-topbar { flex-direction: column; align-items: flex-start; }
+        .slider-controls { align-self: flex-end; }
+      }
+
+      @media (max-width: 520px) {
+        .cta-band { flex-direction: column; align-items: flex-start; }
+      }
     </style>
   </head>
 
@@ -610,7 +698,8 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
 
           <nav class="nav-links" aria-label="Primary">
             <a href="index.html">Home</a>
-            <a href="#mosaic">Highlights</a>
+            <a href="#featured">Featured</a>
+            <a href="#special">Highlights</a>
             <a href="shop.html">All Products</a>
             <a href="#custom">Custom</a>
           </nav>
@@ -696,62 +785,140 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
         </div>
       </section>
 
-      <!-- MOSAIC -->
-      <section class="section" id="mosaic">
+      <!-- FEATURED SLIDESHOW -->
+      <section class="section" id="featured">
+        <div class="container">
+          <h2>Featured products</h2>
+          <p class="lead">
+            Quick peek at what we’ve been making lately — photos + satisfying timelapses.
+          </p>
+
+          <div class="slider-wrap" aria-label="Featured product slideshow">
+            <div class="slider-topbar">
+              <div>
+                <span class="slider-title">Swipe-worthy highlights</span>
+                <span class="slider-sub">2 videos • 3 photos</span>
+              </div>
+
+              <div class="slider-controls">
+                <button class="icon-btn" id="prevBtn" type="button" aria-label="Previous slide">←</button>
+                <button class="icon-btn" id="nextBtn" type="button" aria-label="Next slide">→</button>
+              </div>
+            </div>
+
+            <div class="slider">
+              <div class="slides" id="slides">
+                <!-- Update these 5 asset paths -->
+                <div class="slide" data-type="video">
+                  <video
+                    src="assets/FEATURE_VIDEO_1.mp4"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                  ></video>
+                  <div class="slide-caption">
+                    <span class="cap-pill">Timelapse • engraving in action</span>
+                    <a class="cap-pill" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener">Watch more on IG →</a>
+                  </div>
+                </div>
+
+                <div class="slide" data-type="image">
+                  <img src="assets/FEATURE_IMG_1.jpg" alt="Featured product photo 1" />
+                  <div class="slide-caption">
+                    <span class="cap-pill">Clean lines • gift-ready finish</span>
+                    <a class="cap-pill" href="shop.html">Shop →</a>
+                  </div>
+                </div>
+
+                <div class="slide" data-type="image">
+                  <img src="assets/FEATURE_IMG_2.jpg" alt="Featured product photo 2" />
+                  <div class="slide-caption">
+                    <span class="cap-pill">Personalized • made to order</span>
+                    <a class="cap-pill" href="#custom">Request custom →</a>
+                  </div>
+                </div>
+
+                <div class="slide" data-type="video">
+                  <video
+                    src="assets/FEATURE_VIDEO_2.mp4"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                  ></video>
+                  <div class="slide-caption">
+                    <span class="cap-pill">Timelapse • satisfying finish</span>
+                    <a class="cap-pill" href="shop.html">Browse best-sellers →</a>
+                  </div>
+                </div>
+
+                <div class="slide" data-type="image">
+                  <img src="assets/FEATURE_IMG_3.jpg" alt="Featured product photo 3" />
+                  <div class="slide-caption">
+                    <span class="cap-pill">Events • glass • wood • acrylic</span>
+                    <a class="cap-pill" href="shop.html#categories">Explore categories →</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dots" id="dots" aria-label="Slideshow dots"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MADE TO FEEL SPECIAL (fixed layout, no overlap) -->
+      <section class="section" id="special">
         <div class="container">
           <h2>Made to feel special</h2>
           <p class="lead">
             A few ways Beaming With Joy adds personality — mix-and-match categories, materials, and the vibe you want.
           </p>
 
-          <div class="mosaic" aria-label="Mosaic highlights">
-            <div class="m-card text yellow clean">
-              <h3>Clean designs</h3>
-              <p>Modern, photogenic layouts that don’t feel generic — built to match your theme.</p>
-              <div class="chips">
-                <a class="chip" href="shop.html#events">Event Glow-Ups</a>
-                <a class="chip" href="shop.html#biz">Brand Boost</a>
-                <a class="chip" href="#custom">Custom</a>
+          <div class="special-grid" aria-label="Highlights cards">
+            <div class="special-card">
+              <div class="special-head">
+                <h3>Clean designs</h3>
+                <p>Modern, photogenic layouts that don’t feel generic — built to match your theme.</p>
+                <div class="chips">
+                  <a class="chip" href="shop.html#events">Event Glow-Ups</a>
+                  <a class="chip" href="shop.html#biz">Brand Boost</a>
+                  <a class="chip" href="#custom">Custom</a>
+                </div>
+              </div>
+              <div class="special-media">
+                <img src="assets/basic_invite.jpg" alt="Clean design sample" />
               </div>
             </div>
 
-            <div class="m-card img pic1">
-              <img src="assets/basic_invite.jpg" alt="Sample product photo 1" />
-            </div>
-
-            <div class="m-card img pic2">
-              <img src="assets/basic_glassware.jpg" alt="Sample product photo 2" />
-            </div>
-
-            <div class="m-card text teal quality">
-              <h3>Quality materials</h3>
-              <p>Glass, wood, acrylic — chosen for crisp engraving and a clean, gift-worthy finish.</p>
-              <div class="chips">
-                <a class="chip" href="shop.html#glass">Glass & Shine</a>
-                <a class="chip" href="shop.html#kids">Kid Joy</a>
-                <a class="chip" href="shop.html">All products</a>
+            <div class="special-card">
+              <div class="special-head">
+                <h3>Quality materials</h3>
+                <p>Glass, wood, acrylic — chosen for crisp engraving and a clean, gift-worthy finish.</p>
+                <div class="chips">
+                  <a class="chip" href="shop.html#glass">Glass & Shine</a>
+                  <a class="chip" href="shop.html#kids">Kid Joy</a>
+                  <a class="chip" href="shop.html">All products</a>
+                </div>
+              </div>
+              <div class="special-media">
+                <img src="assets/basic_glassware.jpg" alt="Quality materials sample" />
               </div>
             </div>
 
-            <div class="m-card text coral time">
-              <h3>Timelapses</h3>
-              <p>Behind-the-scenes making + satisfying finishes (perfect for Instagram).</p>
-              <div class="chips">
-                <a class="chip" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener">Watch on IG</a>
-                <a class="chip" href="shop.html">Shop</a>
+            <div class="special-card">
+              <div class="special-head">
+                <h3>Behind the scenes</h3>
+                <p>Timelapses, process clips, and satisfying finishes (perfect for Instagram).</p>
+                <div class="chips">
+                  <a class="chip" href="https://www.instagram.com/beamingwithjoyllc/" target="_blank" rel="noopener">Watch on IG</a>
+                  <a class="chip" href="shop.html">Shop</a>
+                </div>
               </div>
-            </div>
-
-            <div class="m-card img pic3">
-              <img src="assets/basic_woodwork.jpg" alt="Sample product photo 3" />
-            </div>
-
-            <div class="m-card img pic4">
-              <img src="assets/basic_bc.jpg" alt="Sample product photo 4" />
-            </div>
-
-            <div class="m-card img pic5">
-              <img src="assets/basic_invite.jpg" alt="Sample product photo 5" />
+              <div class="special-media">
+                <img src="assets/basic_woodwork.jpg" alt="Behind the scenes sample" />
+              </div>
             </div>
           </div>
         </div>
@@ -783,7 +950,7 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
           <div class="footer-links">
             <a href="shop.html">Shop</a>
             <a href="cart.html">Cart</a>
-            <a href="#mosaic">Highlights</a>
+            <a href="#special">Highlights</a>
           </div>
 
           <div class="contact-mini" aria-label="Contact links">
@@ -795,7 +962,87 @@ Key change: Mosaic rebuilt using GRID (no absolute-position children)
     </footer>
 
     <script>
+      // Footer year
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      // =========================
+      // Slideshow logic
+      // =========================
+      const slidesEl = document.getElementById("slides");
+      const slideEls = Array.from(slidesEl.querySelectorAll(".slide"));
+      const dotsEl = document.getElementById("dots");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      let index = 0;
+      let autoplayTimer = null;
+
+      function ensureVideoPlayback(i) {
+        // Pause all videos except active; try to play active video (mobile-safe: muted + playsinline)
+        slideEls.forEach((s, idx) => {
+          const v = s.querySelector("video");
+          if (!v) return;
+          if (idx === i) {
+            // Reset for a nice loop start when you arrive
+            try { v.currentTime = 0; } catch (e) {}
+            const p = v.play();
+            if (p && typeof p.catch === "function") p.catch(() => {});
+          } else {
+            v.pause();
+          }
+        });
+      }
+
+      function renderDots() {
+        dotsEl.innerHTML = "";
+        slideEls.forEach((_, i) => {
+          const b = document.createElement("button");
+          b.className = "dotbtn";
+          b.type = "button";
+          b.setAttribute("aria-label", `Go to slide ${i + 1}`);
+          b.setAttribute("aria-current", i === index ? "true" : "false");
+          b.addEventListener("click", () => goTo(i));
+          dotsEl.appendChild(b);
+        });
+      }
+
+      function goTo(i) {
+        index = (i + slideEls.length) % slideEls.length;
+        slidesEl.style.transform = `translateX(-${index * 100}%)`;
+        renderDots();
+        ensureVideoPlayback(index);
+      }
+
+      function next() { goTo(index + 1); }
+      function prev() { goTo(index - 1); }
+
+      prevBtn.addEventListener("click", () => { prev(); restartAutoplay(); });
+      nextBtn.addEventListener("click", () => { next(); restartAutoplay(); });
+
+      function restartAutoplay() {
+        if (autoplayTimer) clearInterval(autoplayTimer);
+        autoplayTimer = setInterval(next, 5200);
+      }
+
+      // Pause autoplay when tab hidden (prevents weird jumps)
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          if (autoplayTimer) clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        } else {
+          restartAutoplay();
+        }
+      });
+
+      // Init
+      goTo(0);
+      restartAutoplay();
+
+      // Optional: allow left/right keys
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") { prev(); restartAutoplay(); }
+        if (e.key === "ArrowRight") { next(); restartAutoplay(); }
+      });
     </script>
   </body>
 </html>
